@@ -727,3 +727,65 @@ themeTransitionStyle.textContent = `
     }
 `;
 document.head.appendChild(themeTransitionStyle);
+
+App.utils.showToast = function(message, type = 'info', duration = 5000) {
+    // Create container if it doesn't exist
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <div class="toast-content">
+            <div class="toast-icon">
+                <i data-feather="${getToastIcon(type)}"></i>
+            </div>
+            <div class="toast-message">${message}</div>
+            <button class="toast-close" onclick="this.parentElement.parentElement.remove()">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Initialize feather icons
+    if (window.feather) {
+        feather.replace();
+    }
+    
+    // Add entrance animation
+    requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(0)';
+    });
+    
+    // Auto remove after duration
+    if (duration > 0) {
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => {
+                    if (toast.parentElement) {
+                        toast.remove();
+                    }
+                }, 300);
+            }
+        }, duration);
+    }
+    
+    function getToastIcon(type) {
+        const icons = {
+            success: 'check-circle',
+            error: 'x-circle',
+            warning: 'alert-triangle',
+            info: 'info'
+        };
+        return icons[type] || 'info';
+    }
+};

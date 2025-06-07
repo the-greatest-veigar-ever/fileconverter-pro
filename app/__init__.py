@@ -31,13 +31,7 @@ def create_app(config_name='default'):
     init_extensions(app)
     
     # Register Jinja2 filters
-    @app.template_filter('strftime')
-    def _jinja2_filter_datetime(date, fmt=None):
-        if fmt is None:
-            fmt = '%Y'
-        if isinstance(date, str):
-            date = datetime.now()
-        return date.strftime(fmt)
+    register_filters(app)
     
     # Register blueprints
     register_blueprints(app)
@@ -59,28 +53,54 @@ def init_extensions(app):
     # Initialize Flask-Moment for datetime handling
     Moment(app)
 
+def register_filters(app):
+    """Register custom Jinja2 filters"""
+    
+    @app.template_filter('strftime')
+    def _jinja2_filter_datetime(date, fmt=None):
+        if fmt is None:
+            fmt = '%Y'
+        if isinstance(date, str):
+            date = datetime.now()
+        return date.strftime(fmt)
+    
+    @app.template_filter('filesize')
+    def _jinja2_filter_filesize(size):
+        """Format file size in human readable format"""
+        if size == 0:
+            return "0 B"
+        
+        for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+            if abs(size) < 1024.0:
+                return f"{size:.1f} {unit}"
+            size /= 1024.0
+        
+        return f"{size:.1f} PB"
+
 def register_blueprints(app):
     """Register application blueprints"""
     
-    # Import blueprints
-    from app.routes.main import main_bp
-    from app.routes.api import api_bp
-    from app.routes.health import health_bp
-    
-    # Register blueprints
-    app.register_blueprint(main_bp)
-    app.register_blueprint(api_bp, url_prefix='/api')
-    app.register_blueprint(health_bp)
+    # Import and register using the new routes module structure
+    from app.routes import register_all_blueprints
+    register_all_blueprints(app)
 
 def register_error_handlers(app):
     """Register custom error handlers"""
     
     @app.errorhandler(404)
     def not_found_error(error):
-        return {'error': 'Not found', 'message': 'The requested resource was not found'}, 404
+        """Handle 404 errors"""
+        if 'api' in str(error):
+            return {
+                'error': 'Not found', 
+                'message': 'The requested resource was not found'
+            }, 404
+        else:
+            return app.send_static_file('404.html'), 404
     
     @app.errorhandler(413)
     def request_entity_too_large(error):
+        """Handle file too large errors"""
         return {
             'error': 'File too large',
             'message': f'File size exceeds the maximum limit of {app.config["MAX_FILE_SIZE_MB"]}MB'
@@ -88,6 +108,7 @@ def register_error_handlers(app):
     
     @app.errorhandler(500)
     def internal_error(error):
+        """Handle internal server errors"""
         app.logger.error(f'Internal server error: {error}')
         return {
             'error': 'Internal server error',
@@ -100,10 +121,15 @@ def setup_logging(app):
     if not app.debug and not app.testing:
         import logging
         from logging.handlers import RotatingFileHandler
+        import os
+        
+        # Ensure logs directory exists
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
         
         # Create file handler
         file_handler = RotatingFileHandler(
-            'app.log', 
+            'logs/fileconverter.log', 
             maxBytes=10240000, 
             backupCount=10
         )
@@ -119,3 +145,15 @@ def setup_logging(app):
         
         app.logger.setLevel(logging.INFO)
         app.logger.info('FileConverter Pro startup')
+    
+    # Console handler for development
+    if app.debug:
+        import logging
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+        console_handler.setFormatter(formatter)
+        app.logger.addHandler(console_handler)
+        app.logger.setLevel(logging.DEBUG)

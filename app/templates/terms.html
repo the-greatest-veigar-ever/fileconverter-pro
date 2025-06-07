@@ -1,0 +1,805 @@
+{% extends "base.html" %}
+
+{% block title %}Terms of Service - {{ app_name }}{% endblock %}
+
+{% block meta_description %}Terms of Service for {{ app_name }}. Read our terms and conditions for using our file conversion service.{% endblock %}
+
+{% block body_class %}terms-page{% endblock %}
+
+{% block content %}
+<!-- Terms Hero Section -->
+<section class="terms-hero">
+    <div class="container">
+        <div class="terms-hero-content">
+            <h1 class="terms-hero-title">Terms of Service</h1>
+            <p class="terms-hero-subtitle">
+                By using {{ app_name }}, you agree to these terms and conditions. Please read them carefully.
+            </p>
+            <div class="last-updated">
+                <i data-feather="calendar"></i>
+                <span>Last updated: January 1, 2025</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Terms Overview -->
+<section class="terms-overview">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="check-circle"></i>
+                </div>
+                <h3>Free Service</h3>
+                <p>{{ app_name }} is completely free to use with no hidden fees or charges.</p>
+            </div>
+            
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="shield"></i>
+                </div>
+                <h3>Fair Use</h3>
+                <p>Use our service responsibly and within reasonable limits for personal and commercial use.</p>
+            </div>
+            
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="users"></i>
+                </div>
+                <h3>Respectful Use</h3>
+                <p>Respect our service, other users, and don't use it for illegal or harmful purposes.</p>
+            </div>
+            
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="file-text"></i>
+                </div>
+                <h3>Content Rights</h3>
+                <p>You retain all rights to your files. We don't claim ownership of anything you upload.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Terms Content -->
+<section class="terms-content">
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Table of Contents -->
+            <div class="toc-sidebar">
+                <h3 class="toc-title">Contents</h3>
+                <nav class="toc-nav">
+                    <a href="#acceptance" class="toc-link">Acceptance of Terms</a>
+                    <a href="#service-description" class="toc-link">Service Description</a>
+                    <a href="#acceptable-use" class="toc-link">Acceptable Use</a>
+                    <a href="#prohibited-uses" class="toc-link">Prohibited Uses</a>
+                    <a href="#user-content" class="toc-link">User Content</a>
+                    <a href="#intellectual-property" class="toc-link">Intellectual Property</a>
+                    <a href="#privacy" class="toc-link">Privacy</a>
+                    <a href="#disclaimers" class="toc-link">Disclaimers</a>
+                    <a href="#limitations" class="toc-link">Limitations</a>
+                    <a href="#indemnification" class="toc-link">Indemnification</a>
+                    <a href="#termination" class="toc-link">Termination</a>
+                    <a href="#changes" class="toc-link">Changes to Terms</a>
+                    <a href="#governing-law" class="toc-link">Governing Law</a>
+                    <a href="#contact" class="toc-link">Contact</a>
+                </nav>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="terms-main">
+                <section id="acceptance" class="terms-section">
+                    <h2 class="section-title">Acceptance of Terms</h2>
+                    
+                    <p>By accessing and using {{ app_name }} (the "Service"), you accept and agree to be bound by the terms and provision of this agreement.</p>
+                    
+                    <p>If you do not agree to abide by the above, please do not use this service.</p>
+                    
+                    <h3 class="subsection-title">Agreement to Terms</h3>
+                    <p>These Terms of Service ("Terms") govern your use of the {{ app_name }} website and service operated by us. Your agreement with us includes these Terms and our Privacy Policy ("Agreements"). You acknowledge that you have read and understood Agreements, and agree to be bound by them.</p>
+                    
+                    <h3 class="subsection-title">Age Requirements</h3>
+                    <p>You must be at least 13 years old to use our Service. By using our Service, you warrant that:</p>
+                    <ul class="terms-list">
+                        <li>You are at least 13 years of age</li>
+                        <li>If you are under 18, you have parental or guardian consent</li>
+                        <li>You have the legal capacity to enter into these Terms</li>
+                        <li>Your use will not violate any applicable law or regulation</li>
+                    </ul>
+                </section>
+                
+                <section id="service-description" class="terms-section">
+                    <h2 class="section-title">Service Description</h2>
+                    
+                    <h3 class="subsection-title">What We Provide</h3>
+                    <p>{{ app_name }} is a free file conversion service that allows you to:</p>
+                    <ul class="terms-list">
+                        <li>Convert files between {{ total_supported_formats }}+ supported formats</li>
+                        <li>Process multiple files in batch operations</li>
+                        <li>Download converted files individually or as ZIP archives</li>
+                        <li>Access the service without registration or account creation</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Service Limitations</h3>
+                    <p>Our service operates with the following limitations:</p>
+                    <ul class="terms-list">
+                        <li>Maximum file size: {{ max_file_size_mb }}MB per file</li>
+                        <li>Maximum batch size: {{ max_files_per_batch }} files per conversion</li>
+                        <li>Files are automatically deleted after 24 hours</li>
+                        <li>Service availability is not guaranteed 24/7</li>
+                        <li>Conversion quality may vary based on source file quality</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Service Availability</h3>
+                    <p>We strive to provide reliable service but do not guarantee:</p>
+                    <ul class="terms-list">
+                        <li>Uninterrupted access to the Service</li>
+                        <li>Error-free operation</li>
+                        <li>Compatibility with all file types or formats</li>
+                        <li>Preservation of all file metadata or properties</li>
+                    </ul>
+                </section>
+                
+                <section id="acceptable-use" class="terms-section">
+                    <h2 class="section-title">Acceptable Use Policy</h2>
+                    
+                    <h3 class="subsection-title">Permitted Uses</h3>
+                    <p>You may use {{ app_name }} for:</p>
+                    <ul class="terms-list">
+                        <li>Personal file conversion needs</li>
+                        <li>Business and commercial file processing</li>
+                        <li>Educational and research purposes</li>
+                        <li>Converting legally owned content</li>
+                        <li>Files you have permission to convert</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Responsible Use</h3>
+                    <p>When using our Service, you agree to:</p>
+                    <ul class="terms-list">
+                        <li>Use the Service only for legitimate purposes</li>
+                        <li>Respect the technical limitations we've implemented</li>
+                        <li>Not attempt to circumvent security measures</li>
+                        <li>Not overload our systems with excessive requests</li>
+                        <li>Comply with all applicable laws and regulations</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Fair Use</h3>
+                    <p>While our service is free, we expect reasonable use:</p>
+                    <ul class="terms-list">
+                        <li>Don't use automated tools to submit large volumes of files</li>
+                        <li>Don't attempt to resell or redistribute our service</li>
+                        <li>Don't use our service as a component of another service without permission</li>
+                        <li>Respect other users' access to the service</li>
+                    </ul>
+                </section>
+                
+                <section id="prohibited-uses" class="terms-section">
+                    <h2 class="section-title">Prohibited Uses</h2>
+                    
+                    <h3 class="subsection-title">Illegal Content</h3>
+                    <p>You may not use our Service to convert or process:</p>
+                    <ul class="terms-list">
+                        <li>Copyrighted material without proper authorization</li>
+                        <li>Content that violates intellectual property rights</li>
+                        <li>Illegal or stolen content</li>
+                        <li>Content that violates export control laws</li>
+                        <li>Materials obtained through unauthorized access</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Harmful Content</h3>
+                    <p>Prohibited content includes:</p>
+                    <ul class="terms-list">
+                        <li>Malware, viruses, or other malicious code</li>
+                        <li>Content intended to harm minors</li>
+                        <li>Harassment, threats, or intimidation materials</li>
+                        <li>Content promoting violence or illegal activities</li>
+                        <li>Spam or unsolicited promotional materials</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Technical Abuse</h3>
+                    <p>You may not:</p>
+                    <ul class="terms-list">
+                        <li>Attempt to reverse engineer or hack our systems</li>
+                        <li>Use bots or automated tools to access the service</li>
+                        <li>Attempt to overwhelm our servers or infrastructure</li>
+                        <li>Try to bypass rate limits or security measures</li>
+                        <li>Probe, scan, or test vulnerabilities</li>
+                        <li>Access areas of the service not intended for public use</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Commercial Restrictions</h3>
+                    <p>Without our written permission, you may not:</p>
+                    <ul class="terms-list">
+                        <li>Use our service as part of a competing service</li>
+                        <li>Resell access to our conversion capabilities</li>
+                        <li>Frame or embed our service in another website commercially</li>
+                        <li>Use our branding or trademarks</li>
+                    </ul>
+                </section>
+                
+                <section id="user-content" class="terms-section">
+                    <h2 class="section-title">User Content & File Ownership</h2>
+                    
+                    <h3 class="subsection-title">Your Rights</h3>
+                    <p>You retain all rights to files you upload to {{ app_name }}:</p>
+                    <ul class="terms-list">
+                        <li>We do not claim ownership of your files</li>
+                        <li>We do not acquire rights to your intellectual property</li>
+                        <li>You maintain full control over your content</li>
+                        <li>We do not monitor or review file contents</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">License to Process</h3>
+                    <p>By uploading files, you grant us a limited license to:</p>
+                    <ul class="terms-list">
+                        <li>Process your files for conversion purposes only</li>
+                        <li>Temporarily store files during the conversion process</li>
+                        <li>Deliver converted files back to you</li>
+                        <li>Automatically delete files after 24 hours</li>
+                    </ul>
+                    <p>This license is non-exclusive, temporary, and solely for providing the conversion service.</p>
+                    
+                    <h3 class="subsection-title">Your Responsibilities</h3>
+                    <p>You are responsible for ensuring that:</p>
+                    <ul class="terms-list">
+                        <li>You have the right to upload and convert the files</li>
+                        <li>Your files don't violate any laws or third-party rights</li>
+                        <li>You have proper backups of important files</li>
+                        <li>You download converted files before the 24-hour deletion</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">File Security</h3>
+                    <p>While we implement security measures:</p>
+                    <ul class="terms-list">
+                        <li>You should not upload sensitive personal information unnecessarily</li>
+                        <li>Consider the sensitivity of your content before uploading</li>
+                        <li>We recommend keeping backups of important files</li>
+                        <li>Be aware that internet transmission carries inherent risks</li>
+                    </ul>
+                </section>
+                
+                <section id="intellectual-property" class="terms-section">
+                    <h2 class="section-title">Intellectual Property Rights</h2>
+                    
+                    <h3 class="subsection-title">Our Rights</h3>
+                    <p>{{ app_name }} and our service, including all content, features, and functionality, are owned by us and are protected by:</p>
+                    <ul class="terms-list">
+                        <li>United States and international copyright laws</li>
+                        <li>Trademark and trade secret laws</li>
+                        <li>Other intellectual property rights</li>
+                        <li>Unfair competition laws</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Permitted Use of Our Service</h3>
+                    <p>You may:</p>
+                    <ul class="terms-list">
+                        <li>Use our service for file conversion as intended</li>
+                        <li>Share links to our service</li>
+                        <li>Reference our service in a factual manner</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Prohibited Actions</h3>
+                    <p>You may not:</p>
+                    <ul class="terms-list">
+                        <li>Copy, modify, or distribute our software or website code</li>
+                        <li>Use our trademarks, logos, or branding without permission</li>
+                        <li>Create derivative works based on our service</li>
+                        <li>Reverse engineer our conversion algorithms</li>
+                        <li>Remove copyright or proprietary notices</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">DMCA Compliance</h3>
+                    <p>We respect intellectual property rights. If you believe your copyrighted work has been infringed:</p>
+                    <ul class="terms-list">
+                        <li>Send a DMCA notice to our designated agent</li>
+                        <li>Include all required information per DMCA guidelines</li>
+                        <li>We will respond appropriately to valid notices</li>
+                        <li>False claims may result in legal consequences</li>
+                    </ul>
+                </section>
+                
+                <section id="privacy" class="terms-section">
+                    <h2 class="section-title">Privacy & Data Protection</h2>
+                    
+                    <p>Your privacy is important to us. Our collection and use of your information is governed by our Privacy Policy, which is incorporated into these Terms by reference.</p>
+                    
+                    <h3 class="subsection-title">Key Privacy Points</h3>
+                    <ul class="terms-list">
+                        <li>We don't permanently store your files</li>
+                        <li>All files are automatically deleted within 24 hours</li>
+                        <li>We don't require registration or personal information</li>
+                        <li>We use minimal tracking and analytics</li>
+                        <li>We don't sell or share your data with third parties</li>
+                    </ul>
+                    
+                    <p>For complete privacy information, please review our <a href="{{ url_for('main.privacy') }}">Privacy Policy</a>.</p>
+                </section>
+                
+                <section id="disclaimers" class="terms-section">
+                    <h2 class="section-title">Disclaimers & Warranties</h2>
+                    
+                    <h3 class="subsection-title">Service Provided "As Is"</h3>
+                    <p>{{ app_name }} is provided on an "as is" and "as available" basis. We expressly disclaim all warranties of any kind, whether express or implied, including but not limited to:</p>
+                    <ul class="terms-list">
+                        <li>Implied warranties of merchantability</li>
+                        <li>Fitness for a particular purpose</li>
+                        <li>Non-infringement</li>
+                        <li>Quality, accuracy, or reliability of the service</li>
+                        <li>Uninterrupted or error-free operation</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">No Guarantee of Results</h3>
+                    <p>We do not warrant that:</p>
+                    <ul class="terms-list">
+                        <li>The service will meet your specific requirements</li>
+                        <li>Conversion results will be perfect or error-free</li>
+                        <li>All file formats will be supported</li>
+                        <li>The service will be available at all times</li>
+                        <li>All technical issues will be resolved</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Third-Party Content</h3>
+                    <p>Our service may include links to third-party websites or services. We are not responsible for:</p>
+                    <ul class="terms-list">
+                        <li>The content or privacy practices of third-party sites</li>
+                        <li>The availability of external services</li>
+                        <li>Any damages from your use of third-party services</li>
+                    </ul>
+                </section>
+                
+                <section id="limitations" class="terms-section">
+                    <h2 class="section-title">Limitation of Liability</h2>
+                    
+                    <h3 class="subsection-title">No Liability for Damages</h3>
+                    <p>To the maximum extent permitted by applicable law, in no event shall {{ app_name }}, its affiliates, officers, directors, employees, agents, or licensors be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
+                    <ul class="terms-list">
+                        <li>Loss of profits, data, use, or other intangible losses</li>
+                        <li>Damages resulting from unauthorized access to your files</li>
+                        <li>Service interruptions or technical failures</li>
+                        <li>Errors in conversion or file corruption</li>
+                        <li>Any other damages arising from use of the service</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Maximum Liability</h3>
+                    <p>Our total liability to you for all damages, losses, and causes of action shall not exceed $100 USD.</p>
+                    
+                    <h3 class="subsection-title">Basis of the Bargain</h3>
+                    <p>You acknowledge that we have set our prices and entered into this agreement in reliance upon the disclaimers of warranty and limitations of liability set forth herein, which reflect a reasonable and fair allocation of risk and form an essential basis of the bargain between the parties.</p>
+                </section>
+                
+                <section id="indemnification" class="terms-section">
+                    <h2 class="section-title">Indemnification</h2>
+                    
+                    <p>You agree to defend, indemnify, and hold harmless {{ app_name }} and its affiliates, officers, directors, employees, and agents from and against any and all claims, damages, obligations, losses, liabilities, costs, or debt, and expenses (including attorney's fees) arising from:</p>
+                    <ul class="terms-list">
+                        <li>Your use of and access to the service</li>
+                        <li>Your violation of any term of these Terms</li>
+                        <li>Your violation of any third-party right, including any copyright, property, or privacy right</li>
+                        <li>Files you upload or convert using our service</li>
+                        <li>Any claim that your use caused damage to a third party</li>
+                    </ul>
+                    
+                    <p>This defense and indemnification obligation will survive termination of your use of the service and these Terms.</p>
+                </section>
+                
+                <section id="termination" class="terms-section">
+                    <h2 class="section-title">Termination</h2>
+                    
+                    <h3 class="subsection-title">Termination by You</h3>
+                    <p>You may stop using our service at any time. Since we don't require accounts, simply stop accessing the service.</p>
+                    
+                    <h3 class="subsection-title">Termination by Us</h3>
+                    <p>We may terminate or suspend your access to our service immediately, without prior notice, for any reason, including:</p>
+                    <ul class="terms-list">
+                        <li>Violation of these Terms</li>
+                        <li>Abuse of the service</li>
+                        <li>Illegal activity</li>
+                        <li>Technical or security reasons</li>
+                        <li>Business decisions to discontinue the service</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Effect of Termination</h3>
+                    <p>Upon termination:</p>
+                    <ul class="terms-list">
+                        <li>Your right to use the service will cease immediately</li>
+                        <li>Any files you've uploaded will be deleted per our normal schedule</li>
+                        <li>Provisions that should survive termination will remain in effect</li>
+                    </ul>
+                </section>
+                
+                <section id="changes" class="terms-section">
+                    <h2 class="section-title">Changes to Terms</h2>
+                    
+                    <h3 class="subsection-title">Right to Modify</h3>
+                    <p>We reserve the right to modify these Terms at any time. When we do:</p>
+                    <ul class="terms-list">
+                        <li>We will update the "Last updated" date</li>
+                        <li>Significant changes will be prominently posted</li>
+                        <li>Your continued use constitutes acceptance of the changes</li>
+                        <li>If you disagree with changes, you should stop using the service</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Notification of Changes</h3>
+                    <p>For material changes, we will provide notice through:</p>
+                    <ul class="terms-list">
+                        <li>Prominent posting on our website</li>
+                        <li>Updates to this Terms page</li>
+                        <li>Other communications as appropriate</li>
+                    </ul>
+                </section>
+                
+                <section id="governing-law" class="terms-section">
+                    <h2 class="section-title">Governing Law & Jurisdiction</h2>
+                    
+                    <h3 class="subsection-title">Applicable Law</h3>
+                    <p>These Terms shall be interpreted and governed by the laws of the United States and the State of California, without regard to conflict of law provisions.</p>
+                    
+                    <h3 class="subsection-title">Jurisdiction</h3>
+                    <p>Any legal action or proceeding arising under these Terms will be brought exclusively in federal or state courts located in California, and the parties consent to personal jurisdiction there.</p>
+                    
+                    <h3 class="subsection-title">Dispute Resolution</h3>
+                    <p>Before pursuing formal legal action, we encourage you to contact us directly to resolve any disputes. Many issues can be resolved through good faith discussion.</p>
+                </section>
+                
+                <section id="contact" class="terms-section">
+                    <h2 class="section-title">Contact Information</h2>
+                    
+                    <h3 class="subsection-title">Questions About Terms</h3>
+                    <p>If you have questions about these Terms of Service, please contact us:</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-method">
+                            <i data-feather="mail"></i>
+                            <div>
+                                <strong>Email:</strong>
+                                <a href="mailto:legal@fileconverter.pro">legal@fileconverter.pro</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <i data-feather="globe"></i>
+                            <div>
+                                <strong>Website:</strong>
+                                <a href="{{ url_for('main.index') }}">{{ request.host }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="subsection-title">Effective Date</h3>
+                    <p>These Terms of Service are effective as of January 1, 2025, and will remain in effect except with respect to any changes in their provisions in the future, which will be in effect immediately after being posted on this page.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Terms styles inherit from privacy styles */
+.terms-hero {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: var(--space-16) 0;
+    text-align: center;
+}
+
+.terms-hero-title {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+}
+
+.terms-hero-subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.last-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+}
+
+.terms-overview {
+    padding: var(--space-16) 0;
+    background: var(--color-background-alt);
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-8);
+}
+
+.overview-item {
+    text-align: center;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+}
+
+.overview-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    color: white;
+}
+
+.overview-item h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+}
+
+.overview-item p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.terms-content {
+    padding: var(--space-20) 0;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--space-12);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.toc-sidebar {
+    position: sticky;
+    top: var(--space-8);
+    height: fit-content;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+}
+
+.toc-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-text-primary);
+}
+
+.toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.toc-link {
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    transition: var(--transition-fast);
+}
+
+.toc-link:hover,
+.toc-link.active {
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+}
+
+.terms-main {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-12);
+}
+
+.terms-section {
+    margin-bottom: var(--space-16);
+}
+
+.terms-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-text-primary);
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: var(--space-4);
+}
+
+.subsection-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    margin-top: var(--space-8);
+    color: var(--color-text-primary);
+}
+
+.terms-section p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+}
+
+.terms-list {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-6);
+    color: var(--color-text-secondary);
+}
+
+.terms-list li {
+    margin-bottom: var(--space-2);
+    line-height: 1.6;
+}
+
+.terms-list strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.contact-info {
+    background: var(--color-background-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin: var(--space-6) 0;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.contact-method:last-child {
+    margin-bottom: 0;
+}
+
+.contact-method i {
+    color: var(--color-primary);
+    width: 20px;
+    height: 20px;
+}
+
+.contact-method a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+}
+
+.contact-method a:hover {
+    text-decoration: underline;
+}
+
+/* Important legal text highlighting */
+.terms-section p:contains("AS IS"),
+.terms-section p:contains("NO WARRANTY"),
+.terms-section p:contains("LIMITATION OF LIABILITY") {
+    background: var(--color-background-alt);
+    padding: var(--space-4);
+    border-left: 4px solid var(--color-warning);
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 768px) {
+    .terms-hero-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+    
+    .toc-sidebar {
+        position: static;
+        order: -1;
+    }
+    
+    .toc-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-1);
+    }
+    
+    .terms-main {
+        padding: var(--space-6);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .subsection-title {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* Smooth scrolling and active section highlighting */
+html {
+    scroll-behavior: smooth;
+}
+
+.terms-section {
+    scroll-margin-top: var(--space-20);
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Table of contents active link highlighting
+document.addEventListener('DOMContentLoaded', function() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('.terms-section');
+    
+    // Intersection Observer for active section highlighting
+    const observerOptions = {
+        rootMargin: '-20% 0px -80% 0px',
+        threshold: 0
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                
+                // Remove active class from all links
+                tocLinks.forEach(link => link.classList.remove('active'));
+                
+                // Add active class to current section link
+                const activeLink = document.querySelector(`.toc-link[href="#${sectionId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all sections
+    sections.forEach(section => {
+        if (section.id) {
+            observer.observe(section);
+        }
+    });
+    
+    // Smooth scroll for TOC links
+    tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,924 @@
+{% extends "base.html" %}
+
+{% block title %}Supported File Formats - {{ app_name }}{% endblock %}
+
+{% block meta_description %}Complete list of supported file formats for {{ app_name }}. Convert between {{ total_supported_formats }}+ formats including images, videos, audio, documents, and more.{% endblock %}
+
+{% block body_class %}formats-page{% endblock %}
+
+{% block content %}
+<!-- Formats Hero Section -->
+<section class="formats-hero">
+    <div class="container">
+        <div class="formats-hero-content">
+            <h1 class="formats-hero-title">Supported File Formats</h1>
+            <p class="formats-hero-subtitle">
+                {{ app_name }} supports over {{ total_supported_formats }} file formats across multiple categories. 
+                Convert between any supported formats with professional quality.
+            </p>
+            
+            <!-- Format Statistics -->
+            <div class="format-stats">
+                <div class="format-stat">
+                    <span class="stat-number">{{ total_supported_formats }}+</span>
+                    <span class="stat-label">Total Formats</span>
+                </div>
+                <div class="format-stat">
+                    <span class="stat-number">{{ supported_formats|length }}</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="format-stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Free to Use</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Search -->
+<section class="format-search-section">
+    <div class="container">
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i data-feather="search" class="search-icon"></i>
+                <input type="text" 
+                       placeholder="Search for a file format (e.g., PDF, MP4, JPG)" 
+                       class="format-search-input" 
+                       id="format-search">
+            </div>
+            <div class="search-filters">
+                <button class="filter-btn active" data-category="all">All Formats</button>
+                {% for category in supported_formats.keys() %}
+                <button class="filter-btn" data-category="{{ category }}">{{ category.title() }}</button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Format Categories -->
+<section class="format-categories-section">
+    <div class="container">
+        {% for category, formats in supported_formats.items() %}
+        <div class="format-category-section" data-category="{{ category }}">
+            <div class="category-header">
+                <div class="category-title-section">
+                    <div class="category-icon">
+                        {% if category == 'image' %}
+                            <i data-feather="image"></i>
+                        {% elif category == 'video' %}
+                            <i data-feather="video"></i>
+                        {% elif category == 'audio' %}
+                            <i data-feather="music"></i>
+                        {% elif category == 'document' %}
+                            <i data-feather="file-text"></i>
+                        {% elif category == 'presentation' %}
+                            <i data-feather="monitor"></i>
+                        {% elif category == 'spreadsheet' %}
+                            <i data-feather="grid"></i>
+                        {% elif category == 'archive' %}
+                            <i data-feather="archive"></i>
+                        {% elif category == 'font' %}
+                            <i data-feather="type"></i>
+                        {% else %}
+                            <i data-feather="file"></i>
+                        {% endif %}
+                    </div>
+                    <div class="category-info">
+                        <h2 class="category-title">{{ category.title() }} Formats</h2>
+                        <p class="category-description">
+                            {% if category == 'image' %}
+                                Convert between popular image formats including JPG, PNG, WebP, HEIC, and vector formats.
+                            {% elif category == 'video' %}
+                                Transform videos between formats like MP4, AVI, MOV, WebM with quality control.
+                            {% elif category == 'audio' %}
+                                Convert audio files between MP3, WAV, FLAC, AAC and other audio formats.
+                            {% elif category == 'document' %}
+                                Transform documents between PDF, Word, text formats and e-book formats.
+                            {% elif category == 'presentation' %}
+                                Convert presentation files between PowerPoint, PDF and other formats.
+                            {% elif category == 'spreadsheet' %}
+                                Transform spreadsheets between Excel, CSV, and other data formats.
+                            {% elif category == 'archive' %}
+                                Convert between different archive and compression formats.
+                            {% elif category == 'font' %}
+                                Convert fonts between TTF, OTF, WOFF and web font formats.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="category-stats">
+                    <span class="format-count">{{ formats|length }} formats</span>
+                </div>
+            </div>
+            
+            <!-- Format Grid -->
+            <div class="formats-grid">
+                {% for format in formats %}
+                <div class="format-card" data-format="{{ format }}">
+                    <div class="format-extension">
+                        .{{ format.upper() }}
+                    </div>
+                    <div class="format-details">
+                        <h3 class="format-name">
+                            {% if format == 'jpg' or format == 'jpeg' %}
+                                JPEG Image
+                            {% elif format == 'png' %}
+                                PNG Image
+                            {% elif format == 'gif' %}
+                                GIF Animation
+                            {% elif format == 'webp' %}
+                                WebP Image
+                            {% elif format == 'mp4' %}
+                                MP4 Video
+                            {% elif format == 'avi' %}
+                                AVI Video
+                            {% elif format == 'mov' %}
+                                QuickTime Video
+                            {% elif format == 'mp3' %}
+                                MP3 Audio
+                            {% elif format == 'wav' %}
+                                WAV Audio
+                            {% elif format == 'flac' %}
+                                FLAC Audio
+                            {% elif format == 'pdf' %}
+                                PDF Document
+                            {% elif format == 'docx' %}
+                                Word Document
+                            {% elif format == 'xlsx' %}
+                                Excel Spreadsheet
+                            {% elif format == 'pptx' %}
+                                PowerPoint Presentation
+                            {% else %}
+                                {{ format.upper() }} File
+                            {% endif %}
+                        </h3>
+                        <p class="format-description">
+                            {% if format == 'jpg' or format == 'jpeg' %}
+                                Widely supported compressed image format, ideal for photos
+                            {% elif format == 'png' %}
+                                High-quality image format with transparency support
+                            {% elif format == 'gif' %}
+                                Animated image format, perfect for simple animations
+                            {% elif format == 'webp' %}
+                                Modern web image format with superior compression
+                            {% elif format == 'mp4' %}
+                                Universal video format with broad compatibility
+                            {% elif format == 'avi' %}
+                                Classic video format with high quality
+                            {% elif format == 'mov' %}
+                                Apple's video format, high quality for editing
+                            {% elif format == 'mp3' %}
+                                Most popular compressed audio format
+                            {% elif format == 'wav' %}
+                                Uncompressed audio format, perfect quality
+                            {% elif format == 'flac' %}
+                                Lossless audio compression for audiophiles
+                            {% elif format == 'pdf' %}
+                                Portable document format, universal compatibility
+                            {% elif format == 'docx' %}
+                                Microsoft Word document format
+                            {% elif format == 'xlsx' %}
+                                Microsoft Excel spreadsheet format
+                            {% elif format == 'pptx' %}
+                                Microsoft PowerPoint presentation format
+                            {% else %}
+                                {{ format.upper() }} format for {{ category }} files
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="format-actions">
+                        <button class="convert-to-btn" onclick="startConversion('{{ format }}')">
+                            <i data-feather="zap"></i>
+                            Convert To
+                        </button>
+                        <button class="convert-from-btn" onclick="startConversion(null, '{{ format }}')">
+                            <i data-feather="upload"></i>
+                            Convert From
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Popular Conversions -->
+<section class="popular-conversions-section">
+    <div class="container">
+        <h2 class="section-title">Popular Conversions</h2>
+        
+        <div class="conversions-grid">
+            <div class="conversion-item">
+                <div class="conversion-flow">
+                    <span class="format-from">JPG</span>
+                    <i data-feather="arrow-right" class="arrow"></i>
+                    <span class="format-to">PNG</span>
+                </div>
+                <p class="conversion-description">Convert JPEG images to PNG format for transparency support</p>
+                <button class="start-conversion-btn" onclick="startPopularConversion('jpg', 'png')">
+                    Start Conversion
+                </button>
+            </div>
+            
+            <div class="conversion-item">
+                <div class="conversion-flow">
+                    <span class="format-from">MOV</span>
+                    <i data-feather="arrow-right" class="arrow"></i>
+                    <span class="format-to">MP4</span>
+                </div>
+                <p class="conversion-description">Convert QuickTime videos to universally compatible MP4</p>
+                <button class="start-conversion-btn" onclick="startPopularConversion('mov', 'mp4')">
+                    Start Conversion
+                </button>
+            </div>
+            
+            <div class="conversion-item">
+                <div class="conversion-flow">
+                    <span class="format-from">HEIC</span>
+                    <i data-feather="arrow-right" class="arrow"></i>
+                    <span class="format-to">JPG</span>
+                </div>
+                <p class="conversion-description">Convert iPhone photos to widely supported JPEG format</p>
+                <button class="start-conversion-btn" onclick="startPopularConversion('heic', 'jpg')">
+                    Start Conversion
+                </button>
+            </div>
+            
+            <div class="conversion-item">
+                <div class="conversion-flow">
+                    <span class="format-from">WAV</span>
+                    <i data-feather="arrow-right" class="arrow"></i>
+                    <span class="format-to">MP3</span>
+                </div>
+                <p class="conversion-description">Compress WAV audio files to space-efficient MP3</p>
+                <button class="start-conversion-btn" onclick="startPopularConversion('wav', 'mp3')">
+                    Start Conversion
+                </button>
+            </div>
+            
+            <div class="conversion-item">
+                <div class="conversion-flow">
+                    <span class="format-from">DOCX</span>
+                    <i data-feather="arrow-right" class="arrow"></i>
+                    <span class="format-to">PDF</span>
+                </div>
+                <p class="conversion-description">Convert Word documents to PDF for universal sharing</p>
+                <button class="start-conversion-btn" onclick="startPopularConversion('docx', 'pdf')">
+                    Start Conversion
+                </button>
+            </div>
+            
+            <div class="conversion-item">
+                <div class="conversion-flow">
+                    <span class="format-from">WEBP</span>
+                    <i data-feather="arrow-right" class="arrow"></i>
+                    <span class="format-to">JPG</span>
+                </div>
+                <p class="conversion-description">Convert modern WebP images to classic JPEG format</p>
+                <button class="start-conversion-btn" onclick="startPopularConversion('webp', 'jpg')">
+                    Start Conversion
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Conversion Matrix -->
+<section class="conversion-matrix-section">
+    <div class="container">
+        <h2 class="section-title">Conversion Compatibility Matrix</h2>
+        <p class="section-description">
+            Check which formats can be converted to other formats. Green indicates supported conversions.
+        </p>
+        
+        <div class="matrix-container">
+            <div class="matrix-note">
+                <i data-feather="info"></i>
+                <span>Within each category, most formats can be converted to each other. Cross-category conversions may have limitations.</span>
+            </div>
+            
+            <div class="matrix-categories">
+                {% for category, formats in supported_formats.items() %}
+                <div class="matrix-category">
+                    <h3 class="matrix-category-title">{{ category.title() }}</h3>
+                    <div class="matrix-formats">
+                        {% for format in formats[:8] %}
+                        <span class="matrix-format">{{ format.upper() }}</span>
+                        {% endfor %}
+                        {% if formats|length > 8 %}
+                        <span class="matrix-more">+{{ formats|length - 8 }} more</span>
+                        {% endif %}
+                    </div>
+                    <div class="matrix-info">
+                        <span class="conversion-info">
+                            <i data-feather="check-circle" class="check-icon"></i>
+                            Full internal conversion support
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="formats-cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Convert Your Files?</h2>
+            <p class="cta-description">
+                Start converting between any of our {{ total_supported_formats }}+ supported formats right now. 
+                No registration required, completely free.
+            </p>
+            <a href="{{ url_for('main.index') }}" class="cta-button">
+                <i data-feather="upload"></i>
+                Start Converting Now
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.formats-hero {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: var(--space-20) 0;
+    text-align: center;
+}
+
+.formats-hero-title {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+}
+
+.formats-hero-subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    margin-bottom: var(--space-12);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.format-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-12);
+    flex-wrap: wrap;
+}
+
+.format-stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-2);
+}
+
+.stat-label {
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+}
+
+.format-search-section {
+    padding: var(--space-12) 0;
+    background: var(--color-background-alt);
+}
+
+.search-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search-input-wrapper {
+    position: relative;
+    margin-bottom: var(--space-8);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+}
+
+.format-search-input {
+    width: 100%;
+    padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-lg);
+    background: var(--color-surface);
+}
+
+.search-filters {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: var(--space-3) var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-weight: var(--font-weight-medium);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.format-category-section {
+    margin-bottom: var(--space-20);
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-6);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.category-title-section {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+}
+
+.category-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+.category-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-2);
+}
+
+.category-description {
+    color: var(--color-text-secondary);
+    max-width: 500px;
+}
+
+.format-count {
+    font-size: var(--font-size-lg);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.formats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-6);
+}
+
+.format-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.format-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.format-extension {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+}
+
+.format-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+}
+
+.format-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-6);
+}
+
+.format-actions {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.convert-to-btn,
+.convert-from-btn {
+    flex: 1;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-background-alt);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.convert-to-btn:hover {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.convert-from-btn:hover {
+    background: var(--color-secondary);
+    color: white;
+    border-color: var(--color-secondary);
+}
+
+.popular-conversions-section {
+    background: var(--color-background-alt);
+    padding: var(--space-20) 0;
+}
+
+.conversions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-12);
+}
+
+.conversion-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    text-align: center;
+    transition: var(--transition-normal);
+}
+
+.conversion-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.conversion-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.format-from,
+.format-to {
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-background-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+}
+
+.format-to {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.arrow {
+    color: var(--color-text-muted);
+}
+
+.conversion-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-6);
+    font-size: var(--font-size-sm);
+}
+
+.start-conversion-btn {
+    width: 100%;
+    padding: var(--space-3);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.start-conversion-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.conversion-matrix-section {
+    padding: var(--space-20) 0;
+}
+
+.matrix-container {
+    margin-top: var(--space-12);
+}
+
+.matrix-note {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-background-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-8);
+    color: var(--color-text-secondary);
+}
+
+.matrix-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-6);
+}
+
+.matrix-category {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+}
+
+.matrix-category-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-text-primary);
+}
+
+.matrix-formats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.matrix-format {
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-background-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+}
+
+.matrix-more {
+    padding: var(--space-1) var(--space-3);
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-size: var(--font-size-xs);
+}
+
+.conversion-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-success);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+}
+
+.check-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.formats-cta-section {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: var(--space-20) 0;
+    text-align: center;
+}
+
+.cta-title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+}
+
+.cta-description {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-8);
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-8);
+    background: white;
+    color: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-lg);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+    text-decoration: none;
+}
+
+/* Hidden state for filtered items */
+.format-card.hidden,
+.format-category-section.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .formats-hero-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .format-stats {
+        gap: var(--space-6);
+    }
+    
+    .category-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-4);
+    }
+    
+    .category-title-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .conversion-flow {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    
+    .arrow {
+        transform: rotate(90deg);
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Format search functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('format-search');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const formatCards = document.querySelectorAll('.format-card');
+    const categorysections = document.querySelectorAll('.format-category-section');
+    
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            filterFormats(searchTerm, getActiveCategory());
+        });
+    }
+    
+    // Filter buttons
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            const category = this.getAttribute('data-category');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+            filterFormats(searchTerm, category);
+        });
+    });
+    
+    function getActiveCategory() {
+        const activeBtn = document.querySelector('.filter-btn.active');
+        return activeBtn ? activeBtn.getAttribute('data-category') : 'all';
+    }
+    
+    function filterFormats(searchTerm, category) {
+        categorySection.forEach(section => {
+            const sectionCategory = section.getAttribute('data-category');
+            const shouldShowCategory = category === 'all' || category === sectionCategory;
+            
+            if (!shouldShowCategory) {
+                section.classList.add('hidden');
+                return;
+            }
+            
+            const formatCards = section.querySelectorAll('.format-card');
+            let hasVisibleCards = false;
+            
+            formatCards.forEach(card => {
+                const format = card.getAttribute('data-format');
+                const formatName = card.querySelector('.format-name').textContent.toLowerCase();
+                const formatDesc = card.querySelector('.format-description').textContent.toLowerCase();
+                
+                const matchesSearch = !searchTerm || 
+                    format.includes(searchTerm) ||
+                    formatName.includes(searchTerm) ||
+                    formatDesc.includes(searchTerm);
+                
+                if (matchesSearch) {
+                    card.classList.remove('hidden');
+                    hasVisibleCards = true;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            // Show/hide entire section based on whether it has visible cards
+            if (hasVisibleCards) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+    }
+});
+
+// Conversion functions
+function startConversion(targetFormat) {
+    // Redirect to main page with format preselected
+    const url = new URL('{{ url_for("main.index") }}', window.location.origin);
+    if (targetFormat) {
+        url.searchParams.set('format', targetFormat);
+    }
+    window.location.href = url.toString();
+}
+
+function startPopularConversion(fromFormat, toFormat) {
+    // Redirect to main page with conversion preselected
+    const url = new URL('{{ url_for("main.index") }}', window.location.origin);
+    url.searchParams.set('from', fromFormat);
+    url.searchParams.set('to', toFormat);
+    window.location.href = url.toString();
+}
+
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,657 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - {{ app_name }}{% endblock %}
+
+{% block meta_description %}Privacy Policy for {{ app_name }}. Learn how we protect your data and files during the conversion process. Your privacy is our priority.{% endblock %}
+
+{% block body_class %}privacy-page{% endblock %}
+
+{% block content %}
+<!-- Privacy Hero Section -->
+<section class="privacy-hero">
+    <div class="container">
+        <div class="privacy-hero-content">
+            <h1 class="privacy-hero-title">Privacy Policy</h1>
+            <p class="privacy-hero-subtitle">
+                Your privacy and data security are our top priorities. Learn how we protect your information.
+            </p>
+            <div class="last-updated">
+                <i data-feather="calendar"></i>
+                <span>Last updated: January 1, 2025</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Privacy Overview -->
+<section class="privacy-overview">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="shield"></i>
+                </div>
+                <h3>Data Protection</h3>
+                <p>All files are encrypted during transmission and automatically deleted within 24 hours.</p>
+            </div>
+            
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="eye-off"></i>
+                </div>
+                <h3>No Storage</h3>
+                <p>We don't permanently store your files or personal data on our servers.</p>
+            </div>
+            
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="lock"></i>
+                </div>
+                <h3>Secure Processing</h3>
+                <p>All file conversions happen in secure, isolated environments.</p>
+            </div>
+            
+            <div class="overview-item">
+                <div class="overview-icon">
+                    <i data-feather="user-x"></i>
+                </div>
+                <h3>No Registration</h3>
+                <p>Use our service without creating accounts or providing personal information.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Privacy Content -->
+<section class="privacy-content">
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Table of Contents -->
+            <div class="toc-sidebar">
+                <h3 class="toc-title">Contents</h3>
+                <nav class="toc-nav">
+                    <a href="#information-collection" class="toc-link">Information We Collect</a>
+                    <a href="#file-handling" class="toc-link">File Handling</a>
+                    <a href="#data-usage" class="toc-link">How We Use Your Data</a>
+                    <a href="#data-sharing" class="toc-link">Data Sharing</a>
+                    <a href="#security" class="toc-link">Security Measures</a>
+                    <a href="#retention" class="toc-link">Data Retention</a>
+                    <a href="#cookies" class="toc-link">Cookies & Analytics</a>
+                    <a href="#rights" class="toc-link">Your Rights</a>
+                    <a href="#contact" class="toc-link">Contact Us</a>
+                </nav>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="privacy-main">
+                <section id="information-collection" class="privacy-section">
+                    <h2 class="section-title">Information We Collect</h2>
+                    
+                    <h3 class="subsection-title">Files You Upload</h3>
+                    <p>When you use {{ app_name }}, we temporarily process the files you upload for conversion. These files are:</p>
+                    <ul class="privacy-list">
+                        <li>Stored temporarily in secure servers during processing</li>
+                        <li>Automatically deleted within 24 hours of upload</li>
+                        <li>Never permanently stored or backed up</li>
+                        <li>Processed in isolated, secure environments</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Technical Information</h3>
+                    <p>We may collect limited technical information to improve our service:</p>
+                    <ul class="privacy-list">
+                        <li>IP address (for security and abuse prevention)</li>
+                        <li>Browser type and version</li>
+                        <li>Operating system information</li>
+                        <li>File format and size statistics (anonymized)</li>
+                        <li>Service usage patterns (anonymized)</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Information We Don't Collect</h3>
+                    <p>We explicitly do NOT collect:</p>
+                    <ul class="privacy-list">
+                        <li>Personal identification information</li>
+                        <li>Email addresses or contact information</li>
+                        <li>Content of your files or documents</li>
+                        <li>File names or metadata beyond technical requirements</li>
+                        <li>Location data or device identifiers</li>
+                    </ul>
+                </section>
+                
+                <section id="file-handling" class="privacy-section">
+                    <h2 class="section-title">File Handling & Processing</h2>
+                    
+                    <h3 class="subsection-title">Upload Process</h3>
+                    <p>When you upload files to {{ app_name }}:</p>
+                    <ul class="privacy-list">
+                        <li>Files are transmitted using HTTPS encryption</li>
+                        <li>Each file receives a unique, random identifier</li>
+                        <li>Files are stored in temporary, secure storage</li>
+                        <li>No human personnel access your files during processing</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Conversion Process</h3>
+                    <p>During file conversion:</p>
+                    <ul class="privacy-list">
+                        <li>Automated systems handle all processing</li>
+                        <li>Files are processed in isolated, secure containers</li>
+                        <li>No file content is logged or monitored</li>
+                        <li>Conversion happens on secure, dedicated servers</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">File Access</h3>
+                    <p>Access to your files is strictly limited:</p>
+                    <ul class="privacy-list">
+                        <li>Only you can access your converted files via unique download links</li>
+                        <li>Download links expire within 24 hours</li>
+                        <li>No {{ app_name }} staff can access your files</li>
+                        <li>Files are automatically purged from all systems after 24 hours</li>
+                    </ul>
+                </section>
+                
+                <section id="data-usage" class="privacy-section">
+                    <h2 class="section-title">How We Use Your Data</h2>
+                    
+                    <p>We use the limited data we collect only for:</p>
+                    <ul class="privacy-list">
+                        <li><strong>Service Provision:</strong> Converting your files to the requested format</li>
+                        <li><strong>Security:</strong> Preventing abuse and protecting our infrastructure</li>
+                        <li><strong>Technical Improvement:</strong> Analyzing anonymous usage patterns to improve performance</li>
+                        <li><strong>Legal Compliance:</strong> Meeting legal obligations and responding to lawful requests</li>
+                    </ul>
+                    
+                    <p>We do NOT use your data for:</p>
+                    <ul class="privacy-list">
+                        <li>Marketing or advertising purposes</li>
+                        <li>Building user profiles or tracking across sites</li>
+                        <li>Selling or renting to third parties</li>
+                        <li>Any purpose unrelated to file conversion</li>
+                    </ul>
+                </section>
+                
+                <section id="data-sharing" class="privacy-section">
+                    <h2 class="section-title">Data Sharing & Third Parties</h2>
+                    
+                    <h3 class="subsection-title">No Data Sharing</h3>
+                    <p>We do not share, sell, rent, or trade your files or personal information with third parties for commercial purposes.</p>
+                    
+                    <h3 class="subsection-title">Service Providers</h3>
+                    <p>We may work with trusted service providers who assist in operating our service:</p>
+                    <ul class="privacy-list">
+                        <li>Cloud hosting providers (with strict data processing agreements)</li>
+                        <li>Security monitoring services</li>
+                        <li>Technical infrastructure providers</li>
+                    </ul>
+                    <p>These providers are contractually bound to protect your data and cannot use it for their own purposes.</p>
+                    
+                    <h3 class="subsection-title">Legal Requirements</h3>
+                    <p>We may disclose information if required by law, such as:</p>
+                    <ul class="privacy-list">
+                        <li>In response to valid legal process (subpoenas, court orders)</li>
+                        <li>To protect our rights, property, or safety</li>
+                        <li>To protect the rights, property, or safety of our users</li>
+                        <li>In connection with legal investigations</li>
+                    </ul>
+                </section>
+                
+                <section id="security" class="privacy-section">
+                    <h2 class="section-title">Security Measures</h2>
+                    
+                    <h3 class="subsection-title">Data Protection</h3>
+                    <p>We implement comprehensive security measures:</p>
+                    <ul class="privacy-list">
+                        <li><strong>Encryption:</strong> All data is encrypted in transit and at rest</li>
+                        <li><strong>Secure Servers:</strong> Files are processed on secure, monitored servers</li>
+                        <li><strong>Access Controls:</strong> Strict access limitations and authentication</li>
+                        <li><strong>Regular Audits:</strong> Security assessments and vulnerability testing</li>
+                        <li><strong>Isolation:</strong> Each conversion runs in isolated environments</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Infrastructure Security</h3>
+                    <p>Our technical security includes:</p>
+                    <ul class="privacy-list">
+                        <li>Firewall protection and intrusion detection</li>
+                        <li>Regular security updates and patches</li>
+                        <li>Secure backup and disaster recovery procedures</li>
+                        <li>24/7 security monitoring and incident response</li>
+                        <li>Industry-standard security certifications</li>
+                    </ul>
+                </section>
+                
+                <section id="retention" class="privacy-section">
+                    <h2 class="section-title">Data Retention</h2>
+                    
+                    <h3 class="subsection-title">File Retention</h3>
+                    <p>Your uploaded and converted files are:</p>
+                    <ul class="privacy-list">
+                        <li>Automatically deleted from all systems within 24 hours</li>
+                        <li>Not backed up or archived anywhere</li>
+                        <li>Completely purged from temporary storage</li>
+                        <li>Irrecoverable after deletion</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Technical Data</h3>
+                    <p>Anonymous technical data may be retained for:</p>
+                    <ul class="privacy-list">
+                        <li>Service improvement and optimization</li>
+                        <li>Security monitoring and abuse prevention</li>
+                        <li>Legal compliance requirements</li>
+                    </ul>
+                    <p>This data is anonymized and cannot be linked back to specific users or files.</p>
+                </section>
+                
+                <section id="cookies" class="privacy-section">
+                    <h2 class="section-title">Cookies & Analytics</h2>
+                    
+                    <h3 class="subsection-title">Essential Cookies</h3>
+                    <p>We use minimal, essential cookies for:</p>
+                    <ul class="privacy-list">
+                        <li>Maintaining your session during file conversion</li>
+                        <li>Remembering your preferences (like theme settings)</li>
+                        <li>Ensuring security and preventing abuse</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">Analytics</h3>
+                    <p>We may use privacy-respecting analytics to understand:</p>
+                    <ul class="privacy-list">
+                        <li>General usage patterns (anonymized)</li>
+                        <li>Performance metrics</li>
+                        <li>Error rates and technical issues</li>
+                    </ul>
+                    <p>All analytics data is anonymized and aggregated.</p>
+                    
+                    <h3 class="subsection-title">No Tracking</h3>
+                    <p>We do not use:</p>
+                    <ul class="privacy-list">
+                        <li>Third-party advertising cookies</li>
+                        <li>Social media tracking pixels</li>
+                        <li>Cross-site tracking technologies</li>
+                        <li>User profiling or behavioral targeting</li>
+                    </ul>
+                </section>
+                
+                <section id="rights" class="privacy-section">
+                    <h2 class="section-title">Your Privacy Rights</h2>
+                    
+                    <h3 class="subsection-title">Data Control</h3>
+                    <p>You have the right to:</p>
+                    <ul class="privacy-list">
+                        <li><strong>Delete:</strong> Your files are automatically deleted within 24 hours</li>
+                        <li><strong>Access:</strong> Request information about any data we may have</li>
+                        <li><strong>Correct:</strong> Update any inaccurate information</li>
+                        <li><strong>Object:</strong> Opt out of any non-essential data processing</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">GDPR Rights (EU Users)</h3>
+                    <p>If you're in the European Union, you have additional rights under GDPR:</p>
+                    <ul class="privacy-list">
+                        <li>Right to data portability</li>
+                        <li>Right to restrict processing</li>
+                        <li>Right to be forgotten</li>
+                        <li>Right to lodge complaints with supervisory authorities</li>
+                    </ul>
+                    
+                    <h3 class="subsection-title">CCPA Rights (California Users)</h3>
+                    <p>California residents have rights under the California Consumer Privacy Act:</p>
+                    <ul class="privacy-list">
+                        <li>Right to know what personal information is collected</li>
+                        <li>Right to delete personal information</li>
+                        <li>Right to opt-out of sale of personal information</li>
+                        <li>Right to non-discrimination for exercising CCPA rights</li>
+                    </ul>
+                </section>
+                
+                <section id="contact" class="privacy-section">
+                    <h2 class="section-title">Contact & Questions</h2>
+                    
+                    <h3 class="subsection-title">Privacy Questions</h3>
+                    <p>If you have questions about this privacy policy or our data practices, please contact us:</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-method">
+                            <i data-feather="mail"></i>
+                            <div>
+                                <strong>Email:</strong>
+                                <a href="mailto:privacy@fileconverter.pro">privacy@fileconverter.pro</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <i data-feather="shield"></i>
+                            <div>
+                                <strong>Data Protection Officer:</strong>
+                                <a href="mailto:dpo@fileconverter.pro">dpo@fileconverter.pro</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="subsection-title">Policy Updates</h3>
+                    <p>We may update this privacy policy occasionally. When we do:</p>
+                    <ul class="privacy-list">
+                        <li>We'll update the "Last updated" date at the top</li>
+                        <li>Significant changes will be clearly communicated</li>
+                        <li>Your continued use constitutes acceptance of updates</li>
+                        <li>You can always access the current version on our website</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.privacy-hero {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: var(--space-16) 0;
+    text-align: center;
+}
+
+.privacy-hero-title {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+}
+
+.privacy-hero-subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    margin-bottom: var(--space-6);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.last-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+}
+
+.privacy-overview {
+    padding: var(--space-16) 0;
+    background: var(--color-background-alt);
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-8);
+}
+
+.overview-item {
+    text-align: center;
+    padding: var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+}
+
+.overview-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    color: white;
+}
+
+.overview-item h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+}
+
+.overview-item p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.privacy-content {
+    padding: var(--space-20) 0;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--space-12);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.toc-sidebar {
+    position: sticky;
+    top: var(--space-8);
+    height: fit-content;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+}
+
+.toc-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-text-primary);
+}
+
+.toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.toc-link {
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    transition: var(--transition-fast);
+}
+
+.toc-link:hover,
+.toc-link.active {
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+}
+
+.privacy-main {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-12);
+}
+
+.privacy-section {
+    margin-bottom: var(--space-16);
+}
+
+.privacy-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-8);
+    color: var(--color-text-primary);
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: var(--space-4);
+}
+
+.subsection-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    margin-top: var(--space-8);
+    color: var(--color-text-primary);
+}
+
+.privacy-section p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+}
+
+.privacy-list {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-6);
+    color: var(--color-text-secondary);
+}
+
+.privacy-list li {
+    margin-bottom: var(--space-2);
+    line-height: 1.6;
+}
+
+.privacy-list strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.contact-info {
+    background: var(--color-background-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin: var(--space-6) 0;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.contact-method:last-child {
+    margin-bottom: 0;
+}
+
+.contact-method i {
+    color: var(--color-primary);
+    width: 20px;
+    height: 20px;
+}
+
+.contact-method a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+}
+
+.contact-method a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .privacy-hero-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+    
+    .toc-sidebar {
+        position: static;
+        order: -1;
+    }
+    
+    .toc-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-1);
+    }
+    
+    .privacy-main {
+        padding: var(--space-6);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .subsection-title {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* Smooth scrolling and active section highlighting */
+html {
+    scroll-behavior: smooth;
+}
+
+.privacy-section {
+    scroll-margin-top: var(--space-20);
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Table of contents active link highlighting
+document.addEventListener('DOMContentLoaded', function() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('.privacy-section');
+    
+    // Intersection Observer for active section highlighting
+    const observerOptions = {
+        rootMargin: '-20% 0px -80% 0px',
+        threshold: 0
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                
+                // Remove active class from all links
+                tocLinks.forEach(link => link.classList.remove('active'));
+                
+                // Add active class to current section link
+                const activeLink = document.querySelector(`.toc-link[href="#${sectionId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all sections
+    sections.forEach(section => {
+        if (section.id) {
+            observer.observe(section);
+        }
+    });
+    
+    // Smooth scroll for TOC links
+    tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
