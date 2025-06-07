@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+
+{% block title %}About - FileConverter Pro{% endblock %}
+
+{% block meta_description %}Learn about FileConverter Pro - a powerful and user-friendly file conversion tool that supports multiple formats and provides fast, reliable conversions.{% endblock %}
+
+{% block content %}
+<section class="about-hero">
+    <div class="container">
+        <h1>About FileConverter Pro</h1>
+        <p class="lead">
+            A powerful, secure, and user-friendly file conversion solution for all your needs.
+        </p>
+    </div>
+</section>
+
+<section class="about-features">
+    <div class="container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <i data-feather="zap"></i>
+                <h3>Fast & Efficient</h3>
+                <p>Convert files quickly with our optimized processing engine.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i data-feather="shield"></i>
+                <h3>Secure</h3>
+                <p>Your files are encrypted and automatically deleted after processing.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i data-feather="layers"></i>
+                <h3>Multiple Formats</h3>
+                <p>Support for a wide range of file formats and conversion types.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i data-feather="cloud"></i>
+                <h3>Cloud Processing</h3>
+                <p>Leverage cloud infrastructure for faster conversions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-formats">
+    <div class="container">
+        <h2>Supported Formats</h2>
+        <div class="formats-grid">
+            <div class="format-category">
+                <h3>Images</h3>
+                <ul>
+                    <li>JPEG/JPG</li>
+                    <li>PNG</li>
+                    <li>GIF</li>
+                    <li>BMP</li>
+                    <li>TIFF</li>
+                    <li>WebP</li>
+                    <li>SVG</li>
+                    <li>HEIC/HEIF</li>
+                </ul>
+            </div>
+            
+            <div class="format-category">
+                <h3>Documents</h3>
+                <ul>
+                    <li>PDF</li>
+                    <li>DOC/DOCX</li>
+                    <li>PPT/PPTX</li>
+                    <li>XLS/XLSX</li>
+                    <li>TXT</li>
+                    <li>RTF</li>
+                    <li>ODT/ODS/ODP</li>
+                </ul>
+            </div>
+            
+            <div class="format-category">
+                <h3>Audio</h3>
+                <ul>
+                    <li>MP3</li>
+                    <li>WAV</li>
+                    <li>FLAC</li>
+                    <li>AAC</li>
+                    <li>OGG</li>
+                    <li>M4A</li>
+                    <li>WMA</li>
+                </ul>
+            </div>
+            
+            <div class="format-category">
+                <h3>Video</h3>
+                <ul>
+                    <li>MP4</li>
+                    <li>AVI</li>
+                    <li>MOV</li>
+                    <li>WMV</li>
+                    <li>FLV</li>
+                    <li>MKV</li>
+                    <li>WebM</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-tech">
+    <div class="container">
+        <h2>Technology Stack</h2>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <img src="{{ url_for('static', filename='img/tech/python.svg') }}" alt="Python">
+                <span>Python</span>
+            </div>
+            <div class="tech-item">
+                <img src="{{ url_for('static', filename='img/tech/flask.svg') }}" alt="Flask">
+                <span>Flask</span>
+            </div>
+            <div class="tech-item">
+                <img src="{{ url_for('static', filename='img/tech/celery.svg') }}" alt="Celery">
+                <span>Celery</span>
+            </div>
+            <div class="tech-item">
+                <img src="{{ url_for('static', filename='img/tech/redis.svg') }}" alt="Redis">
+                <span>Redis</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-cta">
+    <div class="container">
+        <h2>Ready to Convert?</h2>
+        <p>Start converting your files now - it's free and easy!</p>
+        <a href="{{ url_for('main.convert') }}" class="btn btn-primary btn-lg">
+            Start Converting
+            <i data-feather="arrow-right"></i>
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-hero {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+    }
+
+    .about-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .about-hero .lead {
+        font-size: 1.25rem;
+        opacity: 0.9;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 4rem 0;
+    }
+
+    .feature-card {
+        text-align: center;
+        padding: 2rem;
+        background: var(--surface);
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card i {
+        color: var(--primary);
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .feature-card p {
+        color: var(--text-secondary);
+    }
+
+    .about-formats {
+        background: var(--surface-secondary);
+        padding: 4rem 0;
+    }
+
+    .about-formats h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .formats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+    }
+
+    .format-category h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .format-category ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .format-category li {
+        padding: 0.5rem 0;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .about-tech {
+        padding: 4rem 0;
+    }
+
+    .about-tech h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .tech-item img {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1rem;
+    }
+
+    .tech-item span {
+        color: var(--text-secondary);
+    }
+
+    .about-cta {
+        background: var(--surface-secondary);
+        text-align: center;
+        padding: 4rem 0;
+    }
+
+    .about-cta h2 {
+        margin-bottom: 1rem;
+    }
+
+    .about-cta p {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+    }
+
+    @media (max-width: 768px) {
+        .about-hero h1 {
+            font-size: 2rem;
+        }
+
+        .features-grid,
+        .formats-grid,
+        .tech-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

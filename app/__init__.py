@@ -6,7 +6,9 @@ This module contains the Flask application factory and configuration.
 
 from flask import Flask
 from flask_cors import CORS
+from flask_moment import Moment
 from config import config
+from datetime import datetime
 
 def create_app(config_name='default'):
     """
@@ -28,6 +30,15 @@ def create_app(config_name='default'):
     # Initialize extensions
     init_extensions(app)
     
+    # Register Jinja2 filters
+    @app.template_filter('strftime')
+    def _jinja2_filter_datetime(date, fmt=None):
+        if fmt is None:
+            fmt = '%Y'
+        if isinstance(date, str):
+            date = datetime.now()
+        return date.strftime(fmt)
+    
     # Register blueprints
     register_blueprints(app)
     
@@ -44,6 +55,9 @@ def init_extensions(app):
     
     # CORS configuration
     CORS(app, origins=app.config.get('CORS_ORIGINS', ['http://localhost:5000']))
+    
+    # Initialize Flask-Moment for datetime handling
+    Moment(app)
 
 def register_blueprints(app):
     """Register application blueprints"""

@@ -114,258 +114,83 @@
                 
                 <div class="format-categories">
                     {% for category, formats in supported_formats.items() %}
-                    <div class="format-category" data-category="{{ category }}">
-                        <button class="format-category-btn" data-category="{{ category }}">
-                            <div class="format-category-icon">
-                                {% if category == 'image' %}
-                                    <i data-feather="image"></i>
-                                {% elif category == 'video' %}
-                                    <i data-feather="video"></i>
-                                {% elif category == 'audio' %}
-                                    <i data-feather="music"></i>
-                                {% elif category == 'document' %}
-                                    <i data-feather="file-text"></i>
-                                {% elif category == 'presentation' %}
-                                    <i data-feather="monitor"></i>
-                                {% elif category == 'spreadsheet' %}
-                                    <i data-feather="grid"></i>
-                                {% elif category == 'archive' %}
-                                    <i data-feather="archive"></i>
-                                {% elif category == 'font' %}
-                                    <i data-feather="type"></i>
-                                {% else %}
-                                    <i data-feather="file"></i>
-                                {% endif %}
-                            </div>
-                            <span class="format-category-name">{{ category.title() }}</span>
-                            <span class="format-category-count">{{ formats|length }} formats</span>
-                        </button>
-                        
-                        <div class="format-options" id="formats-{{ category }}">
+                    <div class="format-category">
+                        <div class="category-header">
+                            <i data-feather="{{ category.lower() }}" class="category-icon"></i>
+                            <h4 class="category-title">{{ category }}</h4>
+                        </div>
+                        <div class="format-options">
                             {% for format in formats %}
                             <button class="format-option" data-format="{{ format }}">
-                                <span class="format-name">.{{ format.upper() }}</span>
-                                <span class="format-description">{{ format.title() }} Format</span>
+                                <span class="format-label">.{{ format }}</span>
                             </button>
                             {% endfor %}
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                
-                <!-- Quick Format Selection -->
-                <div class="quick-formats">
-                    <h4 class="quick-formats-title">Popular Formats</h4>
-                    <div class="quick-formats-grid">
-                        <button class="quick-format" data-format="pdf">
-                            <i data-feather="file-text"></i>
-                            <span>PDF</span>
-                        </button>
-                        <button class="quick-format" data-format="jpg">
-                            <i data-feather="image"></i>
-                            <span>JPG</span>
-                        </button>
-                        <button class="quick-format" data-format="png">
-                            <i data-feather="image"></i>
-                            <span>PNG</span>
-                        </button>
-                        <button class="quick-format" data-format="mp4">
-                            <i data-feather="video"></i>
-                            <span>MP4</span>
-                        </button>
-                        <button class="quick-format" data-format="mp3">
-                            <i data-feather="music"></i>
-                            <span>MP3</span>
-                        </button>
-                        <button class="quick-format" data-format="docx">
-                            <i data-feather="file-text"></i>
-                            <span>DOCX</span>
-                        </button>
-                        <button class="quick-format" data-format="xlsx">
-                            <i data-feather="grid"></i>
-                            <span>XLSX</span>
-                        </button>
-                        <button class="quick-format" data-format="zip">
-                            <i data-feather="archive"></i>
-                            <span>ZIP</span>
-                        </button>
-                    </div>
-                </div>
             </div>
             
             <!-- Conversion Options -->
             <div class="conversion-options" id="conversion-options" style="display: none;">
-                <h3 class="options-title">Conversion Settings</h3>
+                <h3 class="options-title">Conversion Options</h3>
                 
-                <div class="options-grid">
-                    <!-- Quality Settings -->
-                    <div class="option-group" id="quality-group">
-                        <label class="option-label">Quality</label>
-                        <div class="option-control">
-                            <input type="range" id="quality-slider" min="1" max="100" value="85" class="slider">
-                            <span class="option-value" id="quality-value">85%</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Resolution Settings -->
-                    <div class="option-group" id="resolution-group">
-                        <label class="option-label">Resolution</label>
-                        <select id="resolution-select" class="option-select">
-                            <option value="">Keep Original</option>
-                            <option value="1920x1080">1920x1080 (Full HD)</option>
-                            <option value="1280x720">1280x720 (HD)</option>
-                            <option value="854x480">854x480 (SD)</option>
-                            <option value="640x360">640x360 (Low)</option>
+                <!-- Quality Options -->
+                <div class="option-group">
+                    <label class="option-label">Quality:</label>
+                    <div class="option-controls">
+                        <select class="quality-select" id="quality-select">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
                         </select>
                     </div>
-                    
-                    <!-- Advanced Toggle -->
-                    <div class="option-group full-width">
-                        <button type="button" class="advanced-toggle" id="advanced-toggle">
-                            <i data-feather="settings"></i>
-                            <span>Advanced Settings</span>
-                            <i data-feather="chevron-down" class="toggle-icon"></i>
-                        </button>
-                    </div>
                 </div>
                 
-                <!-- Advanced Options (Hidden by default) -->
-                <div class="advanced-options" id="advanced-options" style="display: none;">
-                    <div class="options-grid">
+                <!-- Advanced Options Toggle -->
+                <div class="advanced-options">
+                    <button class="advanced-toggle" id="advanced-toggle">
+                        <i data-feather="settings"></i>
+                        <span>Advanced Options</span>
+                        <i data-feather="chevron-down"></i>
+                    </button>
+                    
+                    <div class="advanced-panel" id="advanced-panel" style="display: none;">
+                        <!-- Resolution Options -->
                         <div class="option-group">
-                            <label class="option-label">Bitrate</label>
-                            <input type="text" id="bitrate-input" placeholder="e.g., 192k" class="option-input">
+                            <label class="option-label">Resolution:</label>
+                            <div class="option-controls">
+                                <input type="text" class="resolution-input" id="width-input" placeholder="Width">
+                                <span class="resolution-separator">×</span>
+                                <input type="text" class="resolution-input" id="height-input" placeholder="Height">
+                            </div>
                         </div>
                         
+                        <!-- Compression Options -->
                         <div class="option-group">
-                            <label class="option-label">Frame Rate</label>
-                            <select id="fps-select" class="option-select">
-                                <option value="">Auto</option>
-                                <option value="24">24 fps</option>
-                                <option value="30">30 fps</option>
-                                <option value="60">60 fps</option>
-                            </select>
-                        </div>
-                        
-                        <div class="option-group">
-                            <label class="option-label">Codec</label>
-                            <select id="codec-select" class="option-select">
-                                <option value="">Auto</option>
-                                <option value="h264">H.264</option>
-                                <option value="h265">H.265</option>
-                                <option value="vp9">VP9</option>
-                            </select>
-                        </div>
-                        
-                        <div class="option-group">
-                            <label class="option-label">Optimize for</label>
-                            <select id="optimize-select" class="option-select">
-                                <option value="balanced">Balanced</option>
-                                <option value="quality">Quality</option>
-                                <option value="size">File Size</option>
-                                <option value="speed">Speed</option>
-                            </select>
+                            <label class="option-label">Compression:</label>
+                            <div class="option-controls">
+                                <div class="compression-slider">
+                                    <input type="range" min="0" max="100" value="80" class="slider" id="compression-slider">
+                                    <span class="compression-value" id="compression-value">80%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- File List -->
-            {% include 'components/file_list.html' %}
-            
-            <!-- Convert Button -->
-            <div class="convert-action" id="convert-action" style="display: none;">
-                <button type="button" class="convert-btn" id="convert-btn">
-                    <div class="btn-content">
-                        <i data-feather="zap" class="btn-icon"></i>
-                        <span class="btn-text">Start Conversion</span>
-                    </div>
-                    <div class="btn-loading" style="display: none;">
-                        <div class="loading-spinner small"></div>
-                        <span>Converting...</span>
-                    </div>
+            <!-- Action Buttons -->
+            <div class="conversion-actions">
+                <button class="action-button secondary" id="reset-button" style="display: none;">
+                    <i data-feather="refresh-cw"></i>
+                    <span>Reset</span>
                 </button>
                 
-                <div class="convert-info">
-                    <p class="convert-info-text">
-                        <i data-feather="info"></i>
-                        Files are processed locally when possible for maximum speed and privacy
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Features Section -->
-<section class="features-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Why Choose {{ app_name }}?</h2>
-            <p class="section-subtitle">
-                Powerful features designed for modern file conversion needs
-            </p>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
+                <button class="action-button primary" id="convert-button" disabled>
                     <i data-feather="zap"></i>
-                </div>
-                <h3 class="feature-title">Lightning Fast</h3>
-                <p class="feature-description">
-                    Advanced processing engines deliver conversions in seconds, not minutes.
-                </p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i data-feather="layers"></i>
-                </div>
-                <h3 class="feature-title">Batch Processing</h3>
-                <p class="feature-description">
-                    Convert up to {{ max_files_per_batch }} files simultaneously with our intelligent queue system.
-                </p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i data-feather="shield"></i>
-                </div>
-                <h3 class="feature-title">Privacy First</h3>
-                <p class="feature-description">
-                    Files are automatically deleted after conversion. We never store your data permanently.
-                </p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i data-feather="smartphone"></i>
-                </div>
-                <h3 class="feature-title">Works Everywhere</h3>
-                <p class="feature-description">
-                    Responsive design works perfectly on desktop, tablet, and mobile devices.
-                </p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i data-feather="cpu"></i>
-                </div>
-                <h3 class="feature-title">Smart Processing</h3>
-                <p class="feature-description">
-                    Multiple conversion engines ensure optimal quality and compatibility.
-                </p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i data-feather="heart"></i>
-                </div>
-                <h3 class="feature-title">Always Free</h3>
-                <p class="feature-description">
-                    No registration, no watermarks, no limits. Professional quality, completely free.
-                </p>
+                    <span>Convert Now</span>
+                </button>
             </div>
         </div>
     </div>

@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}{{ error_title }} - {{ app_name }}{% endblock %}
+
+{% block meta_description %}{{ error_message }}{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-content">
+            <div class="error-icon">
+                {% if error_code == 404 %}
+                    <i data-feather="search"></i>
+                {% elif error_code == 413 %}
+                    <i data-feather="file-plus"></i>
+                {% elif error_code == 500 %}
+                    <i data-feather="alert-triangle"></i>
+                {% else %}
+                    <i data-feather="alert-circle"></i>
+                {% endif %}
+            </div>
+            
+            <h1 class="error-title">{{ error_title }}</h1>
+            <p class="error-message">{{ error_message }}</p>
+            
+            <div class="error-actions">
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary">
+                    <i data-feather="home"></i>
+                    Back to Home
+                </a>
+                <button class="btn btn-secondary" onclick="window.history.back()">
+                    <i data-feather="arrow-left"></i>
+                    Go Back
+                </button>
+            </div>
+            
+            <div class="error-help">
+                <h2>What you can try:</h2>
+                <ul class="help-list">
+                    <li>
+                        <i data-feather="refresh-cw"></i>
+                        <span>Refresh the page and try again</span>
+                    </li>
+                    <li>
+                        <i data-feather="clock"></i>
+                        <span>Wait a few minutes and try again</span>
+                    </li>
+                    <li>
+                        <i data-feather="wifi"></i>
+                        <span>Check your internet connection</span>
+                    </li>
+                    <li>
+                        <i data-feather="trash-2"></i>
+                        <span>Clear your browser cache and cookies</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="error-support">
+                <p>
+                    Still having issues? 
+                    <a href="{{ url_for('main.help_page') }}">Get Help</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .error-section {
+        padding: 4rem 0;
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+    }
+
+    .error-content {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .error-icon {
+        font-size: 4rem;
+        color: var(--error);
+        margin-bottom: 2rem;
+    }
+
+    .error-icon svg {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .error-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .error-message {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+    }
+
+    .error-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+
+    .error-help {
+        text-align: left;
+        background: var(--surface-secondary);
+        padding: 2rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .error-help h2 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+    }
+
+    .help-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .help-list li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        color: var(--text-secondary);
+    }
+
+    .help-list li:not(:last-child) {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .help-list li svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--primary);
+    }
+
+    .error-support {
+        color: var(--text-secondary);
+    }
+
+    .error-support a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .error-support a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}

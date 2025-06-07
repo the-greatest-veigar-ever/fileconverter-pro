@@ -1,6 +1,7 @@
 # Core Flask
 Flask==2.3.3
 Flask-CORS==4.0.0
+Flask-Moment==1.0.5
 Werkzeug==2.3.7
 python-dotenv==1.0.0
 
@@ -24,8 +25,9 @@ xlwt==1.3.0
 pandas==2.1.4
 
 # Archive Handling
-patoolib==1.12.0
 py7zr==0.20.6
+zipfile38==0.0.3
+rarfile==4.0
 
 # Background Processing
 celery==5.3.4
@@ -40,3 +42,9 @@ click==8.1.7
 
 # Production
 gunicorn==21.2.0
+
+# Additional Dependencies
+future>=0.18.3
+lxml>=4.9.3
+six>=1.16.0
+typing_extensions>=4.7.1
