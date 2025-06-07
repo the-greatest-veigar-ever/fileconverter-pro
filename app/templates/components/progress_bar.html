@@ -1,0 +1,417 @@
+<!-- Progress Bar Component -->
+<div class="progress-bar-wrapper" id="progress-bar-wrapper">
+    <!-- Main Progress Bar -->
+    <div class="progress-bar" id="progress-bar">
+        <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width: 0%;">
+                <div class="progress-glow"></div>
+            </div>
+        </div>
+        
+        <!-- Progress Markers (for multi-step processes) -->
+        <div class="progress-markers" id="progress-markers" style="display: none;">
+            <!-- Markers will be dynamically added based on file count -->
+        </div>
+    </div>
+    
+    <!-- Progress Labels -->
+    <div class="progress-labels" id="progress-labels">
+        <span class="progress-label start">0%</span>
+        <span class="progress-label end">100%</span>
+    </div>
+</div>
+
+<!-- Multi-File Progress Bars (for individual file tracking) -->
+<div class="multi-progress-container" id="multi-progress-container" style="display: none;">
+    <div class="multi-progress-header">
+        <h4 class="multi-progress-title">File Progress</h4>
+        <button class="toggle-multi-progress" id="toggle-multi-progress">
+            <span class="toggle-text">Show Details</span>
+            <i data-feather="chevron-down" class="toggle-icon"></i>
+        </button>
+    </div>
+    
+    <div class="multi-progress-list" id="multi-progress-list">
+        <!-- Individual file progress bars will be added here -->
+    </div>
+</div>
+
+<!-- Circular Progress (Alternative style) -->
+<div class="circular-progress" id="circular-progress" style="display: none;">
+    <div class="circular-progress-container">
+        <svg class="circular-progress-svg" width="120" height="120">
+            <circle class="circular-progress-track" 
+                    cx="60" 
+                    cy="60" 
+                    r="54" 
+                    fill="none" 
+                    stroke="var(--color-border-light)" 
+                    stroke-width="8">
+            </circle>
+            <circle class="circular-progress-fill" 
+                    cx="60" 
+                    cy="60" 
+                    r="54" 
+                    fill="none" 
+                    stroke="var(--color-primary)" 
+                    stroke-width="8" 
+                    stroke-linecap="round"
+                    stroke-dasharray="339.292" 
+                    stroke-dashoffset="339.292"
+                    transform="rotate(-90 60 60)">
+            </circle>
+        </svg>
+        
+        <div class="circular-progress-content">
+            <span class="circular-progress-percentage" id="circular-percentage">0%</span>
+            <span class="circular-progress-label">Converting</span>
+        </div>
+    </div>
+</div>
+
+<!-- Step Progress (for multi-stage processes) -->
+<div class="step-progress" id="step-progress" style="display: none;">
+    <div class="step-progress-container">
+        <div class="step-progress-line"></div>
+        
+        <div class="step-progress-steps">
+            <div class="progress-step active" data-step="1">
+                <div class="step-circle">
+                    <i data-feather="upload" class="step-icon"></i>
+                    <div class="step-progress-ring"></div>
+                </div>
+                <span class="step-label">Upload</span>
+            </div>
+            
+            <div class="progress-step" data-step="2">
+                <div class="step-circle">
+                    <i data-feather="settings" class="step-icon"></i>
+                    <div class="step-progress-ring"></div>
+                </div>
+                <span class="step-label">Process</span>
+            </div>
+            
+            <div class="progress-step" data-step="3">
+                <div class="step-circle">
+                    <i data-feather="zap" class="step-icon"></i>
+                    <div class="step-progress-ring"></div>
+                </div>
+                <span class="step-label">Convert</span>
+            </div>
+            
+            <div class="progress-step" data-step="4">
+                <div class="step-circle">
+                    <i data-feather="download" class="step-icon"></i>
+                    <div class="step-progress-ring"></div>
+                </div>
+                <span class="step-label">Download</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- File Progress Item Template -->
+<template id="file-progress-template">
+    <div class="file-progress-item" data-file-id="">
+        <div class="file-progress-info">
+            <div class="file-progress-icon">
+                <i data-feather="file" class="file-icon"></i>
+            </div>
+            
+            <div class="file-progress-details">
+                <span class="file-progress-name"></span>
+                <span class="file-progress-status">Waiting...</span>
+            </div>
+        </div>
+        
+        <div class="file-progress-bar-container">
+            <div class="file-progress-bar">
+                <div class="file-progress-fill" style="width: 0%;"></div>
+            </div>
+            <span class="file-progress-percentage">0%</span>
+        </div>
+        
+        <!-- File progress actions -->
+        <div class="file-progress-actions">
+            <button class="file-progress-action pause-btn" style="display: none;" title="Pause">
+                <i data-feather="pause"></i>
+            </button>
+            
+            <button class="file-progress-action resume-btn" style="display: none;" title="Resume">
+                <i data-feather="play"></i>
+            </button>
+            
+            <button class="file-progress-action cancel-btn" style="display: none;" title="Cancel">
+                <i data-feather="x"></i>
+            </button>
+            
+            <div class="file-progress-status-icon">
+                <i data-feather="clock" class="status-pending"></i>
+                <i data-feather="loader" class="status-processing rotating" style="display: none;"></i>
+                <i data-feather="check-circle" class="status-complete" style="display: none;"></i>
+                <i data-feather="x-circle" class="status-error" style="display: none;"></i>
+            </div>
+        </div>
+        
+        <!-- Detailed progress info (expandable) -->
+        <div class="file-progress-details-expanded" style="display: none;">
+            <div class="progress-details-grid">
+                <div class="progress-detail-item">
+                    <span class="detail-label">Speed:</span>
+                    <span class="detail-value file-speed">0 MB/s</span>
+                </div>
+                
+                <div class="progress-detail-item">
+                    <span class="detail-label">ETA:</span>
+                    <span class="detail-value file-eta">Calculating...</span>
+                </div>
+                
+                <div class="progress-detail-item">
+                    <span class="detail-label">Size:</span>
+                    <span class="detail-value file-size-progress">0 / 0 MB</span>
+                </div>
+                
+                <div class="progress-detail-item">
+                    <span class="detail-label">Engine:</span>
+                    <span class="detail-value file-engine">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- Progress Animation Styles -->
+<style>
+/* Progress bar animations */
+@keyframes progress-glow {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+@keyframes progress-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.progress-glow {
+    animation: progress-glow 2s ease-in-out infinite;
+}
+
+.rotating {
+    animation: rotate 1s linear infinite;
+}
+
+.step-progress-ring {
+    animation: progress-pulse 2s ease-in-out infinite;
+}
+
+/* Circular progress calculation */
+.circular-progress-fill {
+    transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+/* Multi-progress toggle animation */
+.multi-progress-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.multi-progress-list.expanded {
+    max-height: 1000px;
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.toggle-multi-progress.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+</style>
+
+<script>
+/**
+ * Progress Bar Utilities
+ * These functions help manage different types of progress bars
+ */
+
+// Update main progress bar
+function updateProgressBar(percentage, animated = true) {
+    const progressFill = document.getElementById('progress-fill');
+    const progressPercentage = document.getElementById('progress-percentage');
+    
+    if (progressFill) {
+        const clampedPercentage = Math.max(0, Math.min(100, percentage));
+        
+        if (animated) {
+            progressFill.style.transition = 'width 0.3s ease';
+        } else {
+            progressFill.style.transition = 'none';
+        }
+        
+        progressFill.style.width = `${clampedPercentage}%`;
+    }
+    
+    if (progressPercentage) {
+        progressPercentage.textContent = `${Math.round(percentage)}%`;
+    }
+}
+
+// Update circular progress
+function updateCircularProgress(percentage) {
+    const circularFill = document.querySelector('.circular-progress-fill');
+    const circularPercentage = document.getElementById('circular-percentage');
+    
+    if (circularFill) {
+        const circumference = 2 * Math.PI * 54; // radius = 54
+        const offset = circumference - (percentage / 100) * circumference;
+        circularFill.style.strokeDashoffset = offset;
+    }
+    
+    if (circularPercentage) {
+        circularPercentage.textContent = `${Math.round(percentage)}%`;
+    }
+}
+
+// Update step progress
+function updateStepProgress(currentStep, totalSteps = 4) {
+    const steps = document.querySelectorAll('.progress-step');
+    
+    steps.forEach((step, index) => {
+        const stepNumber = index + 1;
+        
+        if (stepNumber < currentStep) {
+            step.classList.remove('active', 'current');
+            step.classList.add('completed');
+        } else if (stepNumber === currentStep) {
+            step.classList.remove('completed');
+            step.classList.add('active', 'current');
+        } else {
+            step.classList.remove('active', 'current', 'completed');
+        }
+    });
+}
+
+// Add file progress item
+function addFileProgress(fileId, fileName, fileSize) {
+    const template = document.getElementById('file-progress-template');
+    const container = document.getElementById('multi-progress-list');
+    
+    if (!template || !container) return null;
+    
+    const clone = template.content.cloneNode(true);
+    const item = clone.querySelector('.file-progress-item');
+    
+    // Set file data
+    item.setAttribute('data-file-id', fileId);
+    item.querySelector('.file-progress-name').textContent = fileName;
+    item.querySelector('.file-size-progress').textContent = `0 / ${formatFileSize(fileSize)}`;
+    
+    container.appendChild(clone);
+    
+    // Show multi-progress container
+    document.getElementById('multi-progress-container').style.display = 'block';
+    
+    return item;
+}
+
+// Update individual file progress
+function updateFileProgress(fileId, percentage, status = '', speed = 0, eta = '') {
+    const fileItem = document.querySelector(`[data-file-id="${fileId}"]`);
+    if (!fileItem) return;
+    
+    // Update progress bar
+    const progressFill = fileItem.querySelector('.file-progress-fill');
+    const progressPercentage = fileItem.querySelector('.file-progress-percentage');
+    
+    if (progressFill) {
+        progressFill.style.width = `${percentage}%`;
+    }
+    
+    if (progressPercentage) {
+        progressPercentage.textContent = `${Math.round(percentage)}%`;
+    }
+    
+    // Update status
+    const statusElement = fileItem.querySelector('.file-progress-status');
+    if (statusElement && status) {
+        statusElement.textContent = status;
+    }
+    
+    // Update speed and ETA
+    const speedElement = fileItem.querySelector('.file-speed');
+    const etaElement = fileItem.querySelector('.file-eta');
+    
+    if (speedElement && speed > 0) {
+        speedElement.textContent = `${formatFileSize(speed)}/s`;
+    }
+    
+    if (etaElement && eta) {
+        etaElement.textContent = eta;
+    }
+    
+    // Update status icons
+    updateFileStatusIcon(fileItem, percentage);
+}
+
+// Update file status icon
+function updateFileStatusIcon(fileItem, percentage) {
+    const icons = fileItem.querySelectorAll('.file-progress-status-icon i');
+    icons.forEach(icon => icon.style.display = 'none');
+    
+    let activeIcon;
+    if (percentage === 0) {
+        activeIcon = fileItem.querySelector('.status-pending');
+    } else if (percentage > 0 && percentage < 100) {
+        activeIcon = fileItem.querySelector('.status-processing');
+    } else if (percentage === 100) {
+        activeIcon = fileItem.querySelector('.status-complete');
+    }
+    
+    if (activeIcon) {
+        activeIcon.style.display = 'block';
+    }
+}
+
+// Format file size for display
+function formatFileSize(bytes) {
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    if (bytes === 0) return '0 B';
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
+}
+
+// Initialize progress bar functionality
+function initializeProgressBar() {
+    // Toggle multi-progress details
+    const toggleBtn = document.getElementById('toggle-multi-progress');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+            const list = document.getElementById('multi-progress-list');
+            const icon = this.querySelector('.toggle-icon');
+            const text = this.querySelector('.toggle-text');
+            
+            if (list.classList.contains('expanded')) {
+                list.classList.remove('expanded');
+                text.textContent = 'Show Details';
+                this.classList.remove('expanded');
+            } else {
+                list.classList.add('expanded');
+                text.textContent = 'Hide Details';
+                this.classList.add('expanded');
+            }
+        });
+    }
+}
+
+// Auto-initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeProgressBar);
+</script>

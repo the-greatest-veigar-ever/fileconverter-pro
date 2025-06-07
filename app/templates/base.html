@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Convert files online with FileConverter Pro - Support for 200+ formats including images, videos, audio, documents and more{% endblock %}">
+    <meta name="keywords" content="file converter, online converter, image converter, video converter, audio converter, document converter">
+    <meta name="author" content="FileConverter Pro">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}{{ app_name }} - Professional File Conversion{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Convert files online with support for 200+ formats. Fast, secure, and free file conversion.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/og-image.png') }}">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ app_name }} - Professional File Conversion{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Convert files online with support for 200+ formats{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    
+    {% block extra_css %}{% endblock %}
+    
+    <title>{% block title %}{{ app_name }} - Professional File Conversion{% endblock %}</title>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading {{ app_name }}...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="main-header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <a href="{{ url_for('main.index') }}" class="brand-link">
+                    <div class="brand-icon">
+                        <i data-feather="zap"></i>
+                    </div>
+                    <span class="brand-text">{{ app_name }}</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.index') }}" class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}">
+                            <i data-feather="home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.formats') }}" class="nav-link {% if request.endpoint == 'main.formats' %}active{% endif %}">
+                            <i data-feather="file-text"></i>
+                            <span>Formats</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.help_page') }}" class="nav-link {% if request.endpoint == 'main.help_page' %}active{% endif %}">
+                            <i data-feather="help-circle"></i>
+                            <span>Help</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('main.about') }}" class="nav-link {% if request.endpoint == 'main.about' %}active{% endif %}">
+                            <i data-feather="info"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="nav-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i data-feather="sun" class="theme-icon theme-icon-light"></i>
+                    <i data-feather="moon" class="theme-icon theme-icon-dark"></i>
+                </button>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                    <span class="nav-toggle-line"></span>
+                    <span class="nav-toggle-line"></span>
+                    <span class="nav-toggle-line"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">{{ app_name }}</h3>
+                    <p class="footer-description">
+                        Professional file conversion with support for {{ total_supported_formats }}+ formats. 
+                        Fast, secure, and completely free.
+                    </p>
+                    <div class="footer-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">{{ total_supported_formats }}+</span>
+                            <span class="stat-label">Formats</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">{{ max_file_size_mb }}MB</span>
+                            <span class="stat-label">Max Size</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">{{ max_files_per_batch }}</span>
+                            <span class="stat-label">Batch Size</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Features</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.index') }}">File Conversion</a></li>
+                        <li><a href="{{ url_for('main.formats') }}">Supported Formats</a></li>
+                        <li><a href="#batch-conversion">Batch Processing</a></li>
+                        <li><a href="#api-access">API Access</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.help_page') }}">Help Center</a></li>
+                        <li><a href="{{ url_for('main.about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('main.privacy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ url_for('main.terms') }}">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Connect</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <i data-feather="github"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Discord">
+                            <i data-feather="message-circle"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Email">
+                            <i data-feather="mail"></i>
+                        </a>
+                    </div>
+                    <div class="footer-newsletter">
+                        <p class="newsletter-text">Stay updated with new features</p>
+                        <div class="newsletter-form">
+                            <input type="email" placeholder="Enter your email" class="newsletter-input">
+                            <button class="newsletter-btn" type="button">
+                                <i data-feather="send"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="copyright">
+                        © {{ "now"|strftime("%Y") }} {{ app_name }}. All rights reserved.
+                    </p>
+                    <p class="version">
+                        Version {{ app_version }} • 
+                        <a href="{{ url_for('health.health_check') }}" class="health-link">System Status</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Modals Container -->
+    <div id="modals-container"></div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i data-feather="arrow-up"></i>
+    </button>
+
+    <!-- Core JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+        
+        // Hide loading screen when page is loaded
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 300);
+        });
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

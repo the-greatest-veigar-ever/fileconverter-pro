@@ -1,0 +1,679 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if job_id %}Conversion Progress - {{ app_name }}{% else %}Conversion Results - {{ app_name }}{% endif %}
+{% endblock %}
+
+{% block meta_description %}Track your file conversion progress and download converted files with {{ app_name }}.{% endblock %}
+
+{% block body_class %}conversion-page{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Conversion page specific animations */
+@keyframes pulse-success {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slide-in-result {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.conversion-complete .conversion-header {
+    animation: pulse-success 0.6s ease-out;
+}
+
+.result-file {
+    animation: slide-in-result 0.4s ease-out forwards;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="conversion-status-section">
+    <div class="container">
+        <div class="conversion-status-container">
+            
+            <!-- Header -->
+            <div class="conversion-header" id="conversion-header">
+                <div class="conversion-header-content">
+                    <div class="status-icon" id="status-icon">
+                        <i data-feather="clock" class="status-icon-pending"></i>
+                        <i data-feather="zap" class="status-icon-processing" style="display: none;"></i>
+                        <i data-feather="check-circle" class="status-icon-complete" style="display: none;"></i>
+                        <i data-feather="x-circle" class="status-icon-error" style="display: none;"></i>
+                    </div>
+                    
+                    <div class="status-text">
+                        <h1 class="status-title" id="status-title">
+                            {% if job_id %}
+                                Preparing Conversion...
+                            {% else %}
+                                Ready to Convert
+                            {% endif %}
+                        </h1>
+                        <p class="status-subtitle" id="status-subtitle">
+                            {% if job_id %}
+                                Please wait while we process your files
+                            {% else %}
+                                Upload files to get started
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                {% if job_id %}
+                <div class="job-info">
+                    <div class="job-info-item">
+                        <span class="job-info-label">Job ID:</span>
+                        <code class="job-id">{{ job_id }}</code>
+                        <button class="copy-btn" onclick="copyJobId('{{ job_id }}')">
+                            <i data-feather="copy"></i>
+                        </button>
+                    </div>
+                    <div class="job-info-item">
+                        <span class="job-info-label">Started:</span>
+                        <span class="job-time" id="job-start-time">Just now</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Progress Section -->
+            <div class="progress-section" id="progress-section" {% if not job_id %}style="display: none;"{% endif %}>
+                <!-- Overall Progress -->
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <h3 class="progress-title">Conversion Progress</h3>
+                        <span class="progress-percentage" id="progress-percentage">0%</span>
+                    </div>
+                    
+                    {% include 'components/progress_bar.html' %}
+                    
+                    <div class="progress-details">
+                        <div class="progress-detail">
+                            <span class="detail-label">Files:</span>
+                            <span class="detail-value">
+                                <span id="completed-files">0</span> / <span id="total-files">0</span>
+                            </span>
+                        </div>
+                        <div class="progress-detail">
+                            <span class="detail-label">Time Elapsed:</span>
+                            <span class="detail-value" id="elapsed-time">0s</span>
+                        </div>
+                        <div class="progress-detail">
+                            <span class="detail-label">Estimated Remaining:</span>
+                            <span class="detail-value" id="remaining-time">Calculating...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current File Progress -->
+                <div class="current-file-progress" id="current-file-progress" style="display: none;">
+                    <div class="current-file-header">
+                        <h4 class="current-file-title">Currently Processing</h4>
+                        <div class="current-file-status">
+                            <div class="processing-indicator">
+                                <div class="processing-dot"></div>
+                                <div class="processing-dot"></div>
+                                <div class="processing-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="current-file-info">
+                        <div class="file-preview">
+                            <i data-feather="file" class="file-icon" id="current-file-icon"></i>
+                            <div class="file-details">
+                                <span class="file-name" id="current-file-name">file.jpg</span>
+                                <span class="file-format" id="current-file-format">Converting to PNG...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- File List -->
+            <div class="files-section" id="files-section">
+                <div class="files-header">
+                    <h3 class="files-title">Files</h3>
+                    <div class="files-summary" id="files-summary">
+                        <span class="summary-item">
+                            <i data-feather="file"></i>
+                            <span id="files-count">0 files</span>
+                        </span>
+                        <span class="summary-item" id="total-size-summary" style="display: none;">
+                            <i data-feather="hard-drive"></i>
+                            <span id="total-size">0 MB</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="files-list" id="files-list">
+                    <!-- Files will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="results-section" id="results-section" style="display: none;">
+                <div class="results-header">
+                    <h3 class="results-title">Conversion Results</h3>
+                    <div class="results-actions">
+                        <button class="results-btn download-all" id="download-all-btn" style="display: none;">
+                            <i data-feather="download"></i>
+                            <span>Download All (ZIP)</span>
+                        </button>
+                        <button class="results-btn share-btn" id="share-btn" style="display: none;">
+                            <i data-feather="share-2"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="results-list" id="results-list">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+                
+                <!-- Conversion Statistics -->
+                <div class="conversion-stats" id="conversion-stats" style="display: none;">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Success Rate</span>
+                            <span class="stat-value" id="success-rate">100%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Time</span>
+                            <span class="stat-value" id="total-time">0s</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Size Reduction</span>
+                            <span class="stat-value" id="size-reduction">0%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Files Processed</span>
+                            <span class="stat-value" id="files-processed">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Error Section -->
+            <div class="errors-section" id="errors-section" style="display: none;">
+                <div class="errors-header">
+                    <h3 class="errors-title">
+                        <i data-feather="alert-triangle"></i>
+                        Errors & Warnings
+                    </h3>
+                </div>
+                
+                <div class="errors-list" id="errors-list">
+                    <!-- Errors will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="actions-section" id="actions-section">
+                <div class="actions-grid">
+                    <a href="{{ url_for('main.index') }}" class="action-btn secondary">
+                        <i data-feather="plus"></i>
+                        <span>Convert More Files</span>
+                    </a>
+                    
+                    <button class="action-btn secondary" onclick="location.reload()">
+                        <i data-feather="refresh-cw"></i>
+                        <span>Refresh Status</span>
+                    </button>
+                    
+                    <a href="{{ url_for('main.help_page') }}" class="action-btn secondary">
+                        <i data-feather="help-circle"></i>
+                        <span>Get Help</span>
+                    </a>
+                    
+                    <button class="action-btn danger" id="cancel-btn" style="display: none;">
+                        <i data-feather="x"></i>
+                        <span>Cancel Conversion</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Upload Section (if no job_id) -->
+{% if not job_id %}
+<section class="upload-section">
+    <div class="container">
+        <div class="upload-prompt">
+            <div class="upload-prompt-content">
+                <div class="upload-prompt-icon">
+                    <i data-feather="upload-cloud"></i>
+                </div>
+                <h2 class="upload-prompt-title">No Files to Convert</h2>
+                <p class="upload-prompt-subtitle">
+                    Upload files to start your conversion process
+                </p>
+                <a href="{{ url_for('main.index') }}" class="upload-prompt-btn">
+                    <i data-feather="upload"></i>
+                    <span>Upload Files</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Conversion tracking and UI updates
+class ConversionTracker {
+    constructor(jobId) {
+        this.jobId = jobId;
+        this.polling = false;
+        this.pollingInterval = null;
+        this.startTime = Date.now();
+        
+        this.initializeElements();
+        
+        if (this.jobId) {
+            this.startPolling();
+        }
+    }
+    
+    initializeElements() {
+        this.elements = {
+            statusIcon: document.getElementById('status-icon'),
+            statusTitle: document.getElementById('status-title'),
+            statusSubtitle: document.getElementById('status-subtitle'),
+            progressSection: document.getElementById('progress-section'),
+            progressBar: document.getElementById('progress-bar'),
+            progressFill: document.getElementById('progress-fill'),
+            progressPercentage: document.getElementById('progress-percentage'),
+            completedFiles: document.getElementById('completed-files'),
+            totalFiles: document.getElementById('total-files'),
+            elapsedTime: document.getElementById('elapsed-time'),
+            remainingTime: document.getElementById('remaining-time'),
+            currentFileProgress: document.getElementById('current-file-progress'),
+            currentFileName: document.getElementById('current-file-name'),
+            currentFileFormat: document.getElementById('current-file-format'),
+            filesList: document.getElementById('files-list'),
+            resultsSection: document.getElementById('results-section'),
+            resultsList: document.getElementById('results-list'),
+            errorsSection: document.getElementById('errors-section'),
+            errorsList: document.getElementById('errors-list'),
+            downloadAllBtn: document.getElementById('download-all-btn'),
+            cancelBtn: document.getElementById('cancel-btn'),
+            conversionStats: document.getElementById('conversion-stats')
+        };
+    }
+    
+    startPolling() {
+        this.polling = true;
+        this.updateStatus();
+        this.pollingInterval = setInterval(() => {
+            if (this.polling) {
+                this.updateStatus();
+            }
+        }, 2000); // Poll every 2 seconds
+    }
+    
+    stopPolling() {
+        this.polling = false;
+        if (this.pollingInterval) {
+            clearInterval(this.pollingInterval);
+        }
+    }
+    
+    async updateStatus() {
+        try {
+            const response = await fetch(`/api/status/${this.jobId}`);
+            const data = await response.json();
+            
+            if (response.ok) {
+                this.updateUI(data);
+                
+                // Stop polling if job is complete or failed
+                if (['completed', 'failed', 'cancelled'].includes(data.status)) {
+                    this.stopPolling();
+                }
+            } else {
+                this.showError(data.message || 'Failed to get status');
+            }
+        } catch (error) {
+            console.error('Status update error:', error);
+            this.showError('Connection error. Please refresh the page.');
+        }
+    }
+    
+    updateUI(data) {
+        const { status, progress, converted_files, errors } = data;
+        
+        // Update status
+        this.updateStatusDisplay(status);
+        
+        // Update progress
+        if (progress) {
+            this.updateProgress(progress);
+        }
+        
+        // Update elapsed time
+        this.updateElapsedTime();
+        
+        // Update files list
+        this.updateFilesList(data);
+        
+        // Show results if completed
+        if (status === 'completed' && converted_files?.length > 0) {
+            this.showResults(converted_files, data.conversion_stats);
+        }
+        
+        // Show errors if any
+        if (errors?.length > 0) {
+            this.showErrors(errors);
+        }
+    }
+    
+    updateStatusDisplay(status) {
+        const icons = this.elements.statusIcon.querySelectorAll('i');
+        icons.forEach(icon => icon.style.display = 'none');
+        
+        let title, subtitle, iconClass;
+        
+        switch (status) {
+            case 'queued':
+                title = 'Queued for Processing';
+                subtitle = 'Your files are in the conversion queue';
+                iconClass = 'status-icon-pending';
+                this.elements.cancelBtn.style.display = 'inline-flex';
+                break;
+                
+            case 'processing':
+                title = 'Converting Files';
+                subtitle = 'Please wait while we convert your files';
+                iconClass = 'status-icon-processing';
+                this.elements.cancelBtn.style.display = 'inline-flex';
+                this.elements.currentFileProgress.style.display = 'block';
+                break;
+                
+            case 'completed':
+                title = 'Conversion Complete!';
+                subtitle = 'All files have been converted successfully';
+                iconClass = 'status-icon-complete';
+                this.elements.cancelBtn.style.display = 'none';
+                this.elements.currentFileProgress.style.display = 'none';
+                document.querySelector('.conversion-header').classList.add('conversion-complete');
+                break;
+                
+            case 'failed':
+                title = 'Conversion Failed';
+                subtitle = 'Some errors occurred during conversion';
+                iconClass = 'status-icon-error';
+                this.elements.cancelBtn.style.display = 'none';
+                break;
+                
+            case 'cancelled':
+                title = 'Conversion Cancelled';
+                subtitle = 'The conversion was cancelled by user';
+                iconClass = 'status-icon-error';
+                this.elements.cancelBtn.style.display = 'none';
+                break;
+        }
+        
+        this.elements.statusTitle.textContent = title;
+        this.elements.statusSubtitle.textContent = subtitle;
+        
+        const activeIcon = this.elements.statusIcon.querySelector(`.${iconClass}`);
+        if (activeIcon) {
+            activeIcon.style.display = 'block';
+        }
+    }
+    
+    updateProgress(progress) {
+        const percentage = progress.percentage || 0;
+        
+        // Update progress bar
+        if (this.elements.progressFill) {
+            this.elements.progressFill.style.width = `${percentage}%`;
+        }
+        
+        // Update percentage text
+        if (this.elements.progressPercentage) {
+            this.elements.progressPercentage.textContent = `${Math.round(percentage)}%`;
+        }
+        
+        // Update file counts
+        if (this.elements.completedFiles) {
+            this.elements.completedFiles.textContent = progress.completed_files || 0;
+        }
+        if (this.elements.totalFiles) {
+            this.elements.totalFiles.textContent = progress.total_files || 0;
+        }
+        
+        // Update remaining time
+        if (this.elements.remainingTime && progress.estimated_remaining_seconds) {
+            this.elements.remainingTime.textContent = this.formatDuration(progress.estimated_remaining_seconds);
+        }
+    }
+    
+    updateElapsedTime() {
+        const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+        if (this.elements.elapsedTime) {
+            this.elements.elapsedTime.textContent = this.formatDuration(elapsed);
+        }
+    }
+    
+    updateFilesList(data) {
+        if (!this.elements.filesList || !data.files) return;
+        
+        const files = data.files || [];
+        const convertedFiles = data.converted_files || [];
+        const errors = data.errors || [];
+        
+        this.elements.filesList.innerHTML = '';
+        
+        files.forEach((file, index) => {
+            const isConverted = convertedFiles.find(cf => cf.id === file.id);
+            const hasError = errors.find(e => e.filename === file.original_filename);
+            
+            const fileItem = this.createFileItem(file, isConverted, hasError);
+            this.elements.filesList.appendChild(fileItem);
+        });
+    }
+    
+    createFileItem(file, converted, error) {
+        const div = document.createElement('div');
+        div.className = 'file-item';
+        
+        let statusClass = 'pending';
+        let statusIcon = 'clock';
+        let statusText = 'Pending';
+        
+        if (error) {
+            statusClass = 'error';
+            statusIcon = 'x-circle';
+            statusText = 'Failed';
+        } else if (converted) {
+            statusClass = 'complete';
+            statusIcon = 'check-circle';
+            statusText = 'Complete';
+        }
+        
+        div.innerHTML = `
+            <div class="file-info">
+                <i data-feather="file" class="file-icon"></i>
+                <div class="file-details">
+                    <span class="file-name">${file.original_filename}</span>
+                    <span class="file-size">${this.formatFileSize(file.size)}</span>
+                </div>
+            </div>
+            <div class="file-status ${statusClass}">
+                <i data-feather="${statusIcon}" class="status-icon"></i>
+                <span class="status-text">${statusText}</span>
+            </div>
+        `;
+        
+        return div;
+    }
+    
+    showResults(convertedFiles, stats) {
+        if (!this.elements.resultsSection) return;
+        
+        this.elements.resultsSection.style.display = 'block';
+        this.elements.resultsList.innerHTML = '';
+        
+        convertedFiles.forEach(file => {
+            const resultItem = this.createResultItem(file);
+            this.elements.resultsList.appendChild(resultItem);
+        });
+        
+        // Show download all button
+        if (convertedFiles.length > 1) {
+            this.elements.downloadAllBtn.style.display = 'inline-flex';
+        }
+        
+        // Show conversion stats
+        if (stats && this.elements.conversionStats) {
+            this.updateConversionStats(stats);
+            this.elements.conversionStats.style.display = 'block';
+        }
+    }
+    
+    createResultItem(file) {
+        const div = document.createElement('div');
+        div.className = 'result-file';
+        
+        div.innerHTML = `
+            <div class="result-info">
+                <i data-feather="file" class="result-icon"></i>
+                <div class="result-details">
+                    <span class="result-name">${file.original_filename}</span>
+                    <span class="result-meta">
+                        ${this.formatFileSize(file.size)} • 
+                        ${file.extension.toUpperCase()} • 
+                        ${file.engine}
+                    </span>
+                </div>
+            </div>
+            <div class="result-actions">
+                <button class="result-btn download" onclick="downloadFile('${this.jobId}', '${file.filename}')">
+                    <i data-feather="download"></i>
+                    <span>Download</span>
+                </button>
+            </div>
+        `;
+        
+        return div;
+    }
+    
+    showErrors(errors) {
+        if (!this.elements.errorsSection || !errors.length) return;
+        
+        this.elements.errorsSection.style.display = 'block';
+        this.elements.errorsList.innerHTML = '';
+        
+        errors.forEach(error => {
+            const errorItem = this.createErrorItem(error);
+            this.elements.errorsList.appendChild(errorItem);
+        });
+    }
+    
+    createErrorItem(error) {
+        const div = document.createElement('div');
+        div.className = 'error-item';
+        
+        div.innerHTML = `
+            <div class="error-icon">
+                <i data-feather="alert-triangle"></i>
+            </div>
+            <div class="error-details">
+                <span class="error-file">${error.filename}</span>
+                <span class="error-message">${error.error}</span>
+            </div>
+        `;
+        
+        return div;
+    }
+    
+    updateConversionStats(stats) {
+        const elements = {
+            successRate: document.getElementById('success-rate'),
+            totalTime: document.getElementById('total-time'),
+            sizeReduction: document.getElementById('size-reduction'),
+            filesProcessed: document.getElementById('files-processed')
+        };
+        
+        if (elements.successRate) elements.successRate.textContent = `${Math.round(stats.success_rate || 0)}%`;
+        if (elements.totalTime) elements.totalTime.textContent = this.formatDuration(stats.processing_time || 0);
+        if (elements.sizeReduction) elements.sizeReduction.textContent = `${Math.round(stats.compression_ratio || 0)}%`;
+        if (elements.filesProcessed) elements.filesProcessed.textContent = stats.completed_count || 0;
+    }
+    
+    formatDuration(seconds) {
+        if (seconds < 60) return `${Math.round(seconds)}s`;
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.round(seconds % 60);
+        return `${minutes}m ${remainingSeconds}s`;
+    }
+    
+    formatFileSize(bytes) {
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        if (bytes === 0) return '0 B';
+        const i = Math.floor(Math.log(bytes) / Math.log(1024));
+        return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${sizes[i]}`;
+    }
+    
+    showError(message) {
+        // Show toast notification
+        if (typeof showToast === 'function') {
+            showToast(message, 'error');
+        } else {
+            alert(message);
+        }
+    }
+}
+
+// Utility functions
+function copyJobId(jobId) {
+    navigator.clipboard.writeText(jobId).then(() => {
+        if (typeof showToast === 'function') {
+            showToast('Job ID copied to clipboard', 'success');
+        }
+    });
+}
+
+function downloadFile(jobId, filename) {
+    window.location.href = `/api/download/${jobId}/${filename}`;
+}
+
+function downloadAllFiles(jobId) {
+    window.location.href = `/api/download/${jobId}`;
+}
+
+// Initialize conversion tracker
+document.addEventListener('DOMContentLoaded', function() {
+    const jobId = '{{ job_id if job_id else "" }}';
+    
+    if (jobId) {
+        new ConversionTracker(jobId);
+        
+        // Setup download all button
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        if (downloadAllBtn) {
+            downloadAllBtn.addEventListener('click', () => downloadAllFiles(jobId));
+        }
+    }
+    
+    // Replace feather icons
+    feather.replace();
+});
+</script>
+{% endblock %}

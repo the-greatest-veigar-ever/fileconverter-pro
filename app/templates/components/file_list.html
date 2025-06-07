@@ -1,0 +1,328 @@
+<!-- File List Component -->
+<div class="file-list-container" id="file-list-container" style="display: none;">
+    <div class="file-list-header">
+        <div class="file-list-title-section">
+            <h3 class="file-list-title">Selected Files</h3>
+            <span class="file-count" id="file-count">0 files</span>
+        </div>
+        
+        <div class="file-list-actions">
+            <button class="file-action-btn" id="clear-all-btn" title="Clear all files">
+                <i data-feather="trash-2"></i>
+                <span>Clear All</span>
+            </button>
+            
+            <button class="file-action-btn" id="add-more-btn" title="Add more files">
+                <i data-feather="plus"></i>
+                <span>Add More</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- File List -->
+    <div class="file-list" id="file-list">
+        <!-- Files will be dynamically added here -->
+    </div>
+    
+    <!-- File List Summary -->
+    <div class="file-list-summary" id="file-list-summary">
+        <div class="summary-stats">
+            <div class="summary-stat">
+                <i data-feather="file" class="summary-icon"></i>
+                <span class="summary-label">Total Files:</span>
+                <span class="summary-value" id="total-files-count">0</span>
+            </div>
+            
+            <div class="summary-stat">
+                <i data-feather="hard-drive" class="summary-icon"></i>
+                <span class="summary-label">Total Size:</span>
+                <span class="summary-value" id="total-size">0 MB</span>
+            </div>
+            
+            <div class="summary-stat">
+                <i data-feather="clock" class="summary-icon"></i>
+                <span class="summary-label">Est. Time:</span>
+                <span class="summary-value" id="estimated-time">~0s</span>
+            </div>
+        </div>
+        
+        <!-- File Type Distribution -->
+        <div class="file-type-distribution" id="file-type-distribution" style="display: none;">
+            <div class="distribution-header">
+                <span class="distribution-title">File Types</span>
+            </div>
+            <div class="distribution-chart" id="distribution-chart">
+                <!-- Dynamic type distribution will be added here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- File Item Template (Hidden) -->
+<template id="file-item-template">
+    <div class="file-item" data-file-id="">
+        <div class="file-preview">
+            <div class="file-icon-container">
+                <i data-feather="file" class="file-type-icon"></i>
+                <div class="file-format-badge">
+                    <span class="format-text"></span>
+                </div>
+            </div>
+            
+            <!-- Image preview for image files -->
+            <div class="file-thumbnail" style="display: none;">
+                <img src="" alt="File preview" class="thumbnail-image">
+            </div>
+        </div>
+        
+        <div class="file-details">
+            <div class="file-name-section">
+                <span class="file-name" title=""></span>
+                <span class="file-path" style="display: none;"></span>
+            </div>
+            
+            <div class="file-meta">
+                <span class="file-size"></span>
+                <span class="file-type"></span>
+                <span class="file-last-modified" style="display: none;"></span>
+            </div>
+            
+            <!-- File validation status -->
+            <div class="file-validation" style="display: none;">
+                <i data-feather="alert-triangle" class="validation-icon"></i>
+                <span class="validation-message"></span>
+            </div>
+        </div>
+        
+        <div class="file-status">
+            <div class="status-indicator">
+                <i data-feather="check-circle" class="status-icon status-valid"></i>
+                <i data-feather="alert-circle" class="status-icon status-warning" style="display: none;"></i>
+                <i data-feather="x-circle" class="status-icon status-error" style="display: none;"></i>
+                <i data-feather="clock" class="status-icon status-pending" style="display: none;"></i>
+            </div>
+            
+            <span class="status-text">Ready</span>
+        </div>
+        
+        <div class="file-actions">
+            <!-- Preview button for supported file types -->
+            <button class="file-action-btn preview-btn" title="Preview file" style="display: none;">
+                <i data-feather="eye"></i>
+            </button>
+            
+            <!-- File info button -->
+            <button class="file-action-btn info-btn" title="File information">
+                <i data-feather="info"></i>
+            </button>
+            
+            <!-- Remove button -->
+            <button class="file-action-btn remove-btn" title="Remove file">
+                <i data-feather="trash-2"></i>
+            </button>
+        </div>
+        
+        <!-- Expanded file information (hidden by default) -->
+        <div class="file-expanded-info" style="display: none;">
+            <div class="expanded-info-grid">
+                <div class="info-item">
+                    <span class="info-label">Full Path:</span>
+                    <span class="info-value file-full-path"></span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Size:</span>
+                    <span class="info-value file-detailed-size"></span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Type:</span>
+                    <span class="info-value file-mime-type"></span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Last Modified:</span>
+                    <span class="info-value file-modified-date"></span>
+                </div>
+                
+                <div class="info-item" style="display: none;">
+                    <span class="info-label">Dimensions:</span>
+                    <span class="info-value file-dimensions"></span>
+                </div>
+                
+                <div class="info-item" style="display: none;">
+                    <span class="info-label">Duration:</span>
+                    <span class="info-value file-duration"></span>
+                </div>
+            </div>
+            
+            <!-- Conversion preview -->
+            <div class="conversion-preview" style="display: none;">
+                <div class="preview-header">
+                    <span class="preview-title">Conversion Preview</span>
+                </div>
+                
+                <div class="preview-content">
+                    <div class="preview-from">
+                        <div class="preview-file">
+                            <i data-feather="file" class="preview-icon"></i>
+                            <span class="preview-format from-format"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-arrow">
+                        <i data-feather="arrow-right"></i>
+                    </div>
+                    
+                    <div class="preview-to">
+                        <div class="preview-file target">
+                            <i data-feather="file" class="preview-icon"></i>
+                            <span class="preview-format to-format"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-details">
+                    <span class="preview-detail">
+                        <i data-feather="zap"></i>
+                        Engine: <span class="preview-engine"></span>
+                    </span>
+                    
+                    <span class="preview-detail">
+                        <i data-feather="clock"></i>
+                        Est. Time: <span class="preview-time"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- File Preview Modal Template -->
+<template id="file-preview-modal-template">
+    <div class="modal-overlay" id="file-preview-modal">
+        <div class="modal-container file-preview-container">
+            <div class="modal-header">
+                <h3 class="modal-title">File Preview</h3>
+                <button class="modal-close" id="close-preview-modal">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="preview-content-container">
+                    <!-- Image preview -->
+                    <div class="preview-image" style="display: none;">
+                        <img src="" alt="Image preview" class="preview-img">
+                    </div>
+                    
+                    <!-- Video preview -->
+                    <div class="preview-video" style="display: none;">
+                        <video controls class="preview-vid">
+                            <source src="" type="">
+                            Your browser does not support video playback.
+                        </video>
+                    </div>
+                    
+                    <!-- Audio preview -->
+                    <div class="preview-audio" style="display: none;">
+                        <audio controls class="preview-aud">
+                            <source src="" type="">
+                            Your browser does not support audio playback.
+                        </audio>
+                    </div>
+                    
+                    <!-- Text preview -->
+                    <div class="preview-text" style="display: none;">
+                        <pre class="preview-text-content"></pre>
+                    </div>
+                    
+                    <!-- Unsupported file type -->
+                    <div class="preview-unsupported" style="display: none;">
+                        <div class="unsupported-content">
+                            <i data-feather="file" class="unsupported-icon"></i>
+                            <h4 class="unsupported-title">Preview Not Available</h4>
+                            <p class="unsupported-message">
+                                This file type cannot be previewed in the browser.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="preview-info">
+                    <div class="preview-file-details">
+                        <span class="preview-file-name"></span>
+                        <span class="preview-file-meta"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- File Information Modal Template -->
+<template id="file-info-modal-template">
+    <div class="modal-overlay" id="file-info-modal">
+        <div class="modal-container file-info-container">
+            <div class="modal-header">
+                <h3 class="modal-title">File Information</h3>
+                <button class="modal-close" id="close-info-modal">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="file-info-grid">
+                    <div class="info-section">
+                        <h4 class="info-section-title">Basic Information</h4>
+                        <div class="info-items">
+                            <div class="info-row">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value file-info-name"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Size:</span>
+                                <span class="info-value file-info-size"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Type:</span>
+                                <span class="info-value file-info-type"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Last Modified:</span>
+                                <span class="info-value file-info-modified"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <h4 class="info-section-title">Conversion Information</h4>
+                        <div class="info-items">
+                            <div class="info-row">
+                                <span class="info-label">File Category:</span>
+                                <span class="info-value file-info-category"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Supported Formats:</span>
+                                <span class="info-value file-info-formats"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Recommended Engine:</span>
+                                <span class="info-value file-info-engine"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Est. Conversion Time:</span>
+                                <span class="info-value file-info-time"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+// File list functionality will be handled by upload.js and main.js
+// This component provides the templates and structure
+</script>

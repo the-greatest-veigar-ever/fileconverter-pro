@@ -1,0 +1,216 @@
+<!-- File Upload Zone -->
+<div class="upload-zone" id="upload-zone">
+    <div class="upload-zone-content">
+        <!-- Upload Area -->
+        <div class="upload-area" id="upload-area">
+            <div class="upload-icon">
+                <i data-feather="upload-cloud" class="upload-icon-default"></i>
+                <i data-feather="check-circle" class="upload-icon-success" style="display: none;"></i>
+                <i data-feather="alert-circle" class="upload-icon-error" style="display: none;"></i>
+            </div>
+            
+            <div class="upload-text">
+                <h3 class="upload-title">Drop files here or click to browse</h3>
+                <p class="upload-subtitle">
+                    Support for {{ total_supported_formats }}+ formats • 
+                    Max {{ max_file_size_mb }}MB per file • 
+                    Up to {{ max_files_per_batch }} files
+                </p>
+            </div>
+            
+            <div class="upload-actions">
+                <button type="button" class="upload-btn primary" id="browse-btn">
+                    <i data-feather="folder"></i>
+                    <span>Browse Files</span>
+                </button>
+                
+                <div class="upload-options">
+                    <label class="upload-option">
+                        <input type="checkbox" id="auto-detect-format" checked>
+                        <span class="checkmark"></span>
+                        <span class="option-text">Auto-detect format</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Upload Progress -->
+        <div class="upload-progress" id="upload-progress" style="display: none;">
+            <div class="upload-progress-header">
+                <h4 class="upload-progress-title">Uploading Files</h4>
+                <span class="upload-progress-count" id="upload-count">0 / 0</span>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="upload-progress-fill" style="width: 0%;"></div>
+                </div>
+                <span class="progress-percentage" id="upload-percentage">0%</span>
+            </div>
+            
+            <div class="upload-details">
+                <span class="upload-speed" id="upload-speed">0 MB/s</span>
+                <span class="upload-eta" id="upload-eta">Calculating...</span>
+            </div>
+        </div>
+        
+        <!-- File Input (Hidden) -->
+        <input type="file" 
+               id="file-input" 
+               multiple 
+               accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt,.rtf,.odt,.ppt,.pptx,.odp,.xls,.xlsx,.csv,.ods,.zip,.rar,.7z"
+               style="display: none;">
+    </div>
+    
+    <!-- Quick Upload Options -->
+    <div class="quick-upload-options" id="quick-upload-options" style="display: none;">
+        <div class="quick-upload-header">
+            <h4 class="quick-upload-title">Quick Actions</h4>
+        </div>
+        
+        <div class="quick-upload-grid">
+            <button class="quick-upload-btn" data-accept="image/*">
+                <i data-feather="image"></i>
+                <span>Images</span>
+                <small>JPG, PNG, GIF...</small>
+            </button>
+            
+            <button class="quick-upload-btn" data-accept="video/*">
+                <i data-feather="video"></i>
+                <span>Videos</span>
+                <small>MP4, AVI, MOV...</small>
+            </button>
+            
+            <button class="quick-upload-btn" data-accept="audio/*">
+                <i data-feather="music"></i>
+                <span>Audio</span>
+                <small>MP3, WAV, FLAC...</small>
+            </button>
+            
+            <button class="quick-upload-btn" data-accept=".pdf,.doc,.docx,.txt">
+                <i data-feather="file-text"></i>
+                <span>Documents</span>
+                <small>PDF, DOC, TXT...</small>
+            </button>
+            
+            <button class="quick-upload-btn" data-accept=".zip,.rar,.7z">
+                <i data-feather="archive"></i>
+                <span>Archives</span>
+                <small>ZIP, RAR, 7Z...</small>
+            </button>
+            
+            <button class="quick-upload-btn" data-accept="*">
+                <i data-feather="plus"></i>
+                <span>All Files</span>
+                <small>Any format</small>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Upload validation messages -->
+<div class="upload-validation" id="upload-validation" style="display: none;">
+    <div class="validation-message" id="validation-message">
+        <i data-feather="info" class="validation-icon"></i>
+        <span class="validation-text"></span>
+    </div>
+</div>
+
+<!-- File Size and Format Info -->
+<div class="upload-info">
+    <div class="upload-info-grid">
+        <div class="info-item">
+            <div class="info-icon">
+                <i data-feather="hard-drive"></i>
+            </div>
+            <div class="info-content">
+                <span class="info-title">Max File Size</span>
+                <span class="info-value">{{ max_file_size_mb }}MB per file</span>
+            </div>
+        </div>
+        
+        <div class="info-item">
+            <div class="info-icon">
+                <i data-feather="layers"></i>
+            </div>
+            <div class="info-content">
+                <span class="info-title">Batch Processing</span>
+                <span class="info-value">Up to {{ max_files_per_batch }} files</span>
+            </div>
+        </div>
+        
+        <div class="info-item">
+            <div class="info-icon">
+                <i data-feather="file-text"></i>
+            </div>
+            <div class="info-content">
+                <span class="info-title">Supported Formats</span>
+                <span class="info-value">{{ total_supported_formats }}+ formats</span>
+            </div>
+        </div>
+        
+        <div class="info-item">
+            <div class="info-icon">
+                <i data-feather="shield"></i>
+            </div>
+            <div class="info-content">
+                <span class="info-title">Privacy</span>
+                <span class="info-value">Auto-delete after 24h</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Supported Formats Preview -->
+<div class="formats-preview" id="formats-preview">
+    <button class="formats-toggle" id="formats-toggle">
+        <span>View Supported Formats</span>
+        <i data-feather="chevron-down" class="toggle-icon"></i>
+    </button>
+    
+    <div class="formats-list" id="formats-list" style="display: none;">
+        {% for category, formats in supported_formats.items() %}
+        <div class="format-category-preview">
+            <div class="format-category-header">
+                <div class="category-icon">
+                    {% if category == 'image' %}
+                        <i data-feather="image"></i>
+                    {% elif category == 'video' %}
+                        <i data-feather="video"></i>
+                    {% elif category == 'audio' %}
+                        <i data-feather="music"></i>
+                    {% elif category == 'document' %}
+                        <i data-feather="file-text"></i>
+                    {% elif category == 'presentation' %}
+                        <i data-feather="monitor"></i>
+                    {% elif category == 'spreadsheet' %}
+                        <i data-feather="grid"></i>
+                    {% elif category == 'archive' %}
+                        <i data-feather="archive"></i>
+                    {% elif category == 'font' %}
+                        <i data-feather="type"></i>
+                    {% else %}
+                        <i data-feather="file"></i>
+                    {% endif %}
+                </div>
+                <h4 class="category-name">{{ category.title() }}</h4>
+                <span class="category-count">{{ formats|length }} formats</span>
+            </div>
+            
+            <div class="format-tags">
+                {% for format in formats[:8] %}
+                <span class="format-tag">{{ format.upper() }}</span>
+                {% endfor %}
+                {% if formats|length > 8 %}
+                <span class="format-tag more">+{{ formats|length - 8 }} more</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+// Upload zone functionality will be handled by upload.js
+// This is just the component template
+</script>
