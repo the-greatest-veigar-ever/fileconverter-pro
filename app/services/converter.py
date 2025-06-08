@@ -616,7 +616,7 @@ class ConversionService:
         for i, file_info in enumerate(files):
             try:
                 # Update progress (this would typically update Redis/database)
-                progress = int((i / len(files)) * 100)
+                progress = int(((i + 1) / len(files)) * 100)
                 current_app.logger.debug(f"Job {job_id} progress: {progress}%")
                 
                 # Convert single file
