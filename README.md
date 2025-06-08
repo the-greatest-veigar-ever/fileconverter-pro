@@ -26,7 +26,7 @@ Quick install for macOS:
 
 # Install system dependencies
 brew install freetype imagemagick ffmpeg libreoffice pandoc ghostscript p7zip
-brew install homebrew/cask/unrar
+brew install unar
 ```
 
 For other operating systems, please refer to [system_requirements.md](system_requirements.md).
