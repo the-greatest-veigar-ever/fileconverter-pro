@@ -41,13 +41,12 @@ Modern UI Components for 2025
   }
   
   .conversion-interface {
-    background: var(--glass-background);
-    backdrop-filter: var(--glass-backdrop);
-    border: 1px solid var(--glass-border);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-2xl);
     padding: var(--space-12);
     margin: var(--space-8) 0;
-    box-shadow: var(--shadow-2xl);
+    box-shadow: var(--shadow-lg);
   }
   
   .conversion-header {
@@ -263,7 +262,7 @@ Modern UI Components for 2025
     align-items: center;
     gap: var(--space-2);
     padding: var(--space-4);
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     cursor: pointer;
@@ -316,7 +315,7 @@ Modern UI Components for 2025
   .info-icon {
     width: 40px;
     height: 40px;
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
@@ -387,7 +386,7 @@ Modern UI Components for 2025
   
   .format-category-btn:hover,
   .format-category.active .format-category-btn {
-    background: var(--glass-background);
+    background: var(--color-background-alt);
   }
   
   .format-category-icon {
@@ -475,7 +474,7 @@ Modern UI Components for 2025
   .quick-formats {
     margin-top: var(--space-8);
     padding: var(--space-6);
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border-radius: var(--radius-lg);
   }
   
@@ -615,7 +614,7 @@ Modern UI Components for 2025
     justify-content: center;
     gap: var(--space-3);
     padding: var(--space-4);
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     cursor: pointer;
@@ -657,7 +656,7 @@ Modern UI Components for 2025
     justify-content: space-between;
     align-items: center;
     padding: var(--space-6);
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border-bottom: 1px solid var(--color-border);
   }
   
@@ -691,7 +690,7 @@ Modern UI Components for 2025
     align-items: center;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-4);
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -740,7 +739,7 @@ Modern UI Components for 2025
   .file-type-icon {
     width: 100%;
     height: 100%;
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     display: flex;
@@ -842,7 +841,7 @@ Modern UI Components for 2025
   .file-action-btn {
     width: 32px;
     height: 32px;
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -965,7 +964,7 @@ Modern UI Components for 2025
   
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    background: var(--color-primary);
     border-radius: var(--radius-full);
     transition: width 0.3s ease;
     position: relative;
@@ -973,19 +972,7 @@ Modern UI Components for 2025
   }
   
   .progress-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    animation: shimmer 2s infinite;
-  }
-  
-  @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    display: none;
   }
   
   .progress-percentage {
@@ -1245,7 +1232,7 @@ Modern UI Components for 2025
   .social-link {
     width: 40px;
     height: 40px;
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     display: flex;

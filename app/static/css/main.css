@@ -1,29 +1,29 @@
 /*
 ===========================================
 FileConverter Pro - Main Styles
-Modern 2025 Design with Glassmorphism
+Minimalist 2025 Aesthetic
 ===========================================
 */
 
 /* CSS Custom Properties (Design System) */
 :root {
-    /* Color System - 2025 Vibrant Palette */
-    --primary-hue: 260;
-    --secondary-hue: 200;
-    --accent-hue: 300;
+    /* Color System - 2025 Minimal Palette */
+    --primary-hue: 220;
+    --secondary-hue: 280;
+    --accent-hue: 340;
     
     /* Light Theme Colors */
-    --color-primary: hsl(var(--primary-hue), 70%, 55%);
-    --color-primary-light: hsl(var(--primary-hue), 70%, 65%);
-    --color-primary-dark: hsl(var(--primary-hue), 70%, 45%);
+    --color-primary: hsl(var(--primary-hue), 65%, 55%);
+    --color-primary-light: hsl(var(--primary-hue), 65%, 65%);
+    --color-primary-dark: hsl(var(--primary-hue), 65%, 40%);
     
-    --color-secondary: hsl(var(--secondary-hue), 65%, 60%);
-    --color-accent: hsl(var(--accent-hue), 60%, 65%);
+    --color-secondary: hsl(var(--secondary-hue), 50%, 60%);
+    --color-accent: hsl(var(--accent-hue), 55%, 65%);
     
-    --color-background: hsl(220, 20%, 98%);
-    --color-background-alt: hsl(220, 15%, 95%);
-    --color-surface: hsl(220, 10%, 100%);
-    --color-surface-elevated: hsl(220, 10%, 100%);
+    --color-background: hsl(0, 0%, 98%);
+    --color-background-alt: hsl(0, 0%, 95%);
+    --color-surface: hsl(0, 0%, 100%);
+    --color-surface-elevated: hsl(0, 0%, 100%);
     
     --color-text-primary: hsl(220, 20%, 15%);
     --color-text-secondary: hsl(220, 15%, 40%);
@@ -106,9 +106,9 @@ Modern 2025 Design with Glassmorphism
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     
     /* Glassmorphism */
-    --glass-background: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-backdrop: blur(20px);
+    --glass-background: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-backdrop: blur(10px);
     
     /* Transitions */
     --transition-fast: 150ms ease;
@@ -139,8 +139,8 @@ Modern 2025 Design with Glassmorphism
     --color-border: var(--color-dark-border);
     --color-border-light: var(--color-dark-border-light);
     
-    --glass-background: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-background: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.15);
   }
   
   /* Reset and Base Styles */
@@ -258,15 +258,14 @@ Modern 2025 Design with Glassmorphism
   .header {
     position: sticky;
     top: 0;
-    background: var(--glass-background);
-    backdrop-filter: var(--glass-backdrop);
-    border-bottom: 1px solid var(--glass-border);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
     z-index: var(--z-sticky);
     transition: var(--transition-normal);
   }
   
   .header.scrolled {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--color-surface);
     box-shadow: var(--shadow-sm);
   }
   
@@ -331,7 +330,7 @@ Modern 2025 Design with Glassmorphism
   .nav-link:hover,
   .nav-link.active {
     color: var(--color-primary);
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     text-decoration: none;
   }
   
@@ -567,7 +566,7 @@ Modern 2025 Design with Glassmorphism
   }
   
   .btn.primary {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    background: var(--color-primary);
     color: white;
     box-shadow: var(--shadow-md);
   }
@@ -578,10 +577,9 @@ Modern 2025 Design with Glassmorphism
   }
   
   .btn.secondary {
-    background: var(--glass-background);
+    background: var(--color-background-alt);
     color: var(--color-text-primary);
     border: 1px solid var(--color-border);
-    backdrop-filter: var(--glass-backdrop);
   }
   
   .btn.secondary:hover:not(:disabled) {
@@ -627,7 +625,7 @@ Modern 2025 Design with Glassmorphism
     right: var(--space-6);
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    background: var(--color-primary);
     color: white;
     border: none;
     border-radius: var(--radius-full);
