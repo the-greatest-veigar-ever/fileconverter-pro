@@ -145,6 +145,24 @@ Modern UI Components for 2025
     padding: var(--space-4) var(--space-8);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+  }
+
+  .upload-btn.primary {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: var(--shadow-md);
+  }
+
+  .upload-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
   
   .upload-options {
@@ -337,6 +355,98 @@ Modern UI Components for 2025
   .info-value {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
+  }
+
+  /* Supported Formats Preview */
+  .formats-preview {
+    margin-top: var(--space-8);
+    text-align: center;
+  }
+
+  .formats-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: var(--color-background-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+  }
+
+  .formats-toggle:hover {
+    background: var(--color-border-light);
+  }
+
+  .formats-toggle .toggle-icon {
+    transition: var(--transition-fast);
+  }
+
+  .formats-toggle.expanded .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .formats-list {
+    margin-top: var(--space-6);
+    display: none;
+  }
+
+  .format-category-preview {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    text-align: left;
+  }
+
+  .format-category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .category-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--color-background-alt);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+
+  .category-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+
+  .category-count {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-left: auto;
+  }
+
+  .format-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .format-tag {
+    padding: 2px 6px;
+    background: var(--color-background-alt);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-primary);
+  }
+
+  .format-tag.more {
+    background: var(--color-primary);
+    color: white;
   }
   
   /* Format Selection */
@@ -949,6 +1059,55 @@ Modern UI Components for 2025
     gap: var(--space-2);
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
+  }
+
+  /* Conversion Actions */
+  .conversion-actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-12);
+  }
+
+  .action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: none;
+  }
+
+  .action-button.primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .action-button.primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .action-button.secondary {
+    background: var(--color-background-alt);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+  }
+
+  .action-button.secondary:hover:not(:disabled) {
+    background: var(--color-border-light);
+    transform: translateY(-1px);
+  }
+
+  .action-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
   
   /* Progress Bars */
