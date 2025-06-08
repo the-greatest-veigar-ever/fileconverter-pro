@@ -795,6 +795,15 @@ Modern UI Components for 2025
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
   }
+
+  .extension-change {
+    margin-top: var(--space-2);
+  }
+
+  .extension-select {
+    padding: 2px 4px;
+    font-size: var(--font-size-sm);
+  }
   
   .file-status {
     display: flex;
