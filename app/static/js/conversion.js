@@ -507,7 +507,8 @@ window.FileConverterPro.Conversion = (function() {
                     filename: file.filename,
                     path: file.path,
                     size: file.size,
-                    extension: file.extension
+                    extension: file.extension,
+                    target_format: file.target_extension || selectedFormat
                 })),
                 target_format: selectedFormat,
                 options: conversionOptions

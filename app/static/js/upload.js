@@ -74,6 +74,12 @@ window.FileConverterPro.Upload = (function() {
         }
         return null;
     }
+
+    function getConversionTargets(extension) {
+        const type = getFileType(extension);
+        if (!type) return [];
+        return config.allowedTypes[type].filter(ext => ext !== extension);
+    }
     
     function formatFileSize(bytes) {
         if (bytes === 0) return '0 B';
@@ -101,19 +107,20 @@ window.FileConverterPro.Upload = (function() {
             const validation = validateFile(file);
             
             // Create file object
-            const fileObj = {
-                id: fileId,
-                file: file,
-                name: file.name,
-                size: file.size,
-                type: file.type,
-                extension: getFileExtension(file.name),
-                fileType: validation.fileType,
-                valid: validation.valid,
-                errors: validation.errors,
-                preview: null,
-                uploaded: false
-            };
+        const fileObj = {
+            id: fileId,
+            file: file,
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            extension: getFileExtension(file.name),
+            fileType: validation.fileType,
+            valid: validation.valid,
+            errors: validation.errors,
+            preview: null,
+            uploaded: false,
+            targetExtension: getFileExtension(file.name)
+        };
             
             // Generate preview for images
             if (validation.fileType === 'image') {
@@ -258,6 +265,22 @@ window.FileConverterPro.Upload = (function() {
         if (fileSize) fileSize.textContent = formatFileSize(fileObj.size);
         if (fileType) fileType.textContent = fileObj.fileType || 'unknown';
         if (formatBadge) formatBadge.textContent = fileObj.extension.toUpperCase();
+
+        // Populate extension select
+        const extSelect = clone.querySelector('.extension-select');
+        if (extSelect) {
+            const targets = getConversionTargets(fileObj.extension);
+            // include current extension
+            const options = [fileObj.extension, ...targets];
+            extSelect.innerHTML = options
+                .map(ext => `<option value="${ext}">${ext.toUpperCase()}</option>`) 
+                .join('');
+            extSelect.value = fileObj.extension;
+            fileObj.targetExtension = fileObj.extension;
+            extSelect.addEventListener('change', () => {
+                fileObj.targetExtension = extSelect.value;
+            });
+        }
         
         // Set file type icon
         const fileIcon = clone.querySelector('.file-type-icon');
@@ -319,12 +342,22 @@ window.FileConverterPro.Upload = (function() {
             const thumbnail = fileItem.querySelector('.file-thumbnail');
             const thumbnailImage = fileItem.querySelector('.thumbnail-image');
             const iconContainer = fileItem.querySelector('.file-icon-container');
-            
+
             if (thumbnail && thumbnailImage && iconContainer) {
                 thumbnailImage.src = fileObj.preview;
                 thumbnail.style.display = 'block';
                 iconContainer.style.display = 'none';
             }
+        }
+
+        const extSelect = fileItem.querySelector('.extension-select');
+        if (extSelect) {
+            const targets = getConversionTargets(fileObj.extension);
+            const options = [fileObj.extension, ...targets];
+            extSelect.innerHTML = options
+                .map(ext => `<option value="${ext}">${ext.toUpperCase()}</option>`)
+                .join('');
+            extSelect.value = fileObj.targetExtension || fileObj.extension;
         }
     }
     
@@ -423,12 +456,17 @@ window.FileConverterPro.Upload = (function() {
             });
             
             const result = await response.json();
-            
+
             if (response.ok) {
                 showSuccess('Files uploaded successfully');
-                
-                // Store uploaded files info for conversion
-                window.FileConverterPro.uploadedFiles = result.files;
+
+                // Store uploaded files info for conversion including target extension
+                window.FileConverterPro.uploadedFiles = result.files.map((info, idx) => {
+                    const localFile = validFiles[idx];
+                    return Object.assign({}, info, {
+                        target_extension: localFile.targetExtension
+                    });
+                });
                 
                 // Trigger next step in conversion process
                 if (window.FileConverterPro.Conversion && window.FileConverterPro.Conversion.handleUploadComplete) {
